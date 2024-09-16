@@ -7,9 +7,11 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
+
 
 enum SortOption: String, CaseIterable {
-    case asEntered = "As Entered"
+    case today = "Today"   
     case alphabetical = "A-Z"
     case chronological = "Date"
     case completed = "Not Done"
@@ -22,14 +24,19 @@ struct SortedToDoList: View {
     init(sortSelection: SortOption) {
         self.sortSelection = sortSelection
         switch self.sortSelection {
-        case .asEntered:
-            _toDos = Query()
+        case .today:
+              let today = Calendar.current.startOfDay(for: Date())
+              let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
+              _toDos = Query(filter: #Predicate {
+                  $0.dueDate >= today && $0.dueDate < tomorrow
+              })
         case .alphabetical:
             _toDos = Query(sort: \.item, animation: .default)
         case .chronological:
             _toDos = Query(sort: \.dueDate)
-        case .completed:
+       case .completed:
             _toDos = Query(filter: #Predicate {$0.isCompleted == false})
+
         }
     }
     
@@ -73,7 +80,7 @@ struct SortedToDoList: View {
 }
 struct ToDoListView: View {
     @State private var sheetIsPresented = false
-    @State private var sortSelection: SortOption = .asEntered
+    @State private var sortSelection: SortOption = .today
     
     
     var body: some View {
