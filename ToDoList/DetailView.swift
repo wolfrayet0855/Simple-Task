@@ -6,32 +6,66 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DetailView: View {
-    var passedValue: String // Don't initialize it -it will be passed from the parent view
-    
     @Environment(\.dismiss) private var dismiss
+    @State var toDo: ToDo
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
-        VStack {
-            Image(systemName: "star")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+        List {
+            TextField("Input task here..", text: $toDo.item)
+                .font(.title)
+                .textFieldStyle(.roundedBorder)
+                .padding(.vertical)
+                .listRowSeparator(.hidden)
             
-            Text("You are a super star!\n And you passed over the value \(passedValue)")
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
+            Toggle("Set Reminder:", isOn: $toDo.reminderIsOn )
+                .padding(.top)
+                .listRowSeparator(.hidden)
             
-            Spacer()
+            DatePicker("Date", selection: $toDo.dueDate)
+                .listRowSeparator(.hidden)
+                .padding(.bottom)
+                .disabled(!toDo.reminderIsOn)
             
-            Button("Click to return.") {
-                dismiss()
+            Text("Notes:")
+                .padding(.top)
+            
+            TextField("Notes", text: $toDo.notes, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .listRowSeparator(.hidden)
+            
+            Toggle("Completed", isOn: $toDo.isCompleted)
+                .padding(.top)
+                .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                 dismiss()
+                }
             }
-            .buttonStyle(.borderedProminent)
+            ToolbarItem(placement: .navigationBarTrailing)
+            {
+                Button("Save") {
+                    print("Saving Task: \(toDo.item), Reminder: \(toDo.reminderIsOn), Due Date: \(toDo.dueDate)")
+                          modelContext.insert(toDo)
+                          dismiss()
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        
         }
     }
-}
 
 #Preview {
-    DetailView(passedValue: "Item1")
+    NavigationStack {
+        DetailView(toDo: ToDo())
+            .modelContainer(for: ToDo.self)
+    }
 }
