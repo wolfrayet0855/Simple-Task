@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ToDoLaunchScreen.png",
+      "filename" : "Untitled (350 x 349 px).jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ToDoLaunchScreen@2x.png",
+      "filename" : "Untitled (350 x 349 px) (700 x 699 px).jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ToDoLaunchScreen@3x.png",
+      "filename" : "Untitled (350 x 349 px) (700 x 699 px) (1050 x 1048 px).jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
