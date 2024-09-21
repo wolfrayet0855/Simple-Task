@@ -1,4 +1,4 @@
-//
+///
 //  ToDoListView.swift
 //  ToDoList
 //
@@ -11,7 +11,7 @@ import UserNotifications
 
 
 enum SortOption: String, CaseIterable {
-    case today = "Today"   
+    case today = "Today"
     case alphabetical = "A-Z"
     case chronological = "Date"
     case completed = "Not Done"
@@ -119,4 +119,3 @@ struct ToDoListView_Previews: PreviewProvider {
         ToDoListView()
     }
 }
-
