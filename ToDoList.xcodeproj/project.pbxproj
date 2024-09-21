@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A0B3A892C9F0338008DAEBE /* MIT License.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "MIT License.md"; sourceTree = "<group>"; };
 		9A793ED92C94A2A8002C2162 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A793EDC2C94A2A8002C2162 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		9A793EDE2C94A2A8002C2162 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 				9A793EDE2C94A2A8002C2162 /* ToDoListView.swift */,
 				9A793EEA2C94A71D002C2162 /* DetailView.swift */,
 				9A793EE02C94A2AB002C2162 /* Assets.xcassets */,
+				9A0B3A892C9F0338008DAEBE /* MIT License.md */,
 				9A793EE22C94A2AB002C2162 /* Preview Content */,
 			);
 			path = ToDoList;
