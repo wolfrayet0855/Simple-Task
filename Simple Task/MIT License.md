@@ -2,7 +2,7 @@ MIT License
 
 #### Copyright (c) 2024 Rebecca Lees
 #### Contact: DM @wolfrayet0855
-#### Repository: https://github.com/wolfrayet0855/ToDoList
+#### Repository: https://github.com/wolfrayet0855/Simple-Task.git
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
