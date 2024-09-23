@@ -1,7 +1,7 @@
-# ToDoList Application
+# Simple Task Application
 
 ## Description
-ToDoList is a SwiftUI application that allows users to manage their tasks efficiently. Users can create, edit, and delete tasks, set reminders, and view tasks sorted by different criteria.
+Simple Task is a SwiftUI application that allows users to manage their tasks efficiently. Users can create, edit, and delete tasks, set reminders, and view tasks sorted by different criteria.
 
 ## Features
 - Create and manage tasks
@@ -11,12 +11,12 @@ ToDoList is a SwiftUI application that allows users to manage their tasks effici
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/todolist.git
-   cd todolist
+   git clone https://github.com/wolfrayet0855/Simple-Task.git
+   cd Simple Task
    ```
 2. Open the project in Xcode:
    ```bash
-   open ToDoList.xcodeproj
+   open Simple Task.xcodeproj
    ```
 3. Build and run the application in Xcode.
 
