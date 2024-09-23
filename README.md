@@ -11,8 +11,8 @@ Simple Task is a SwiftUI application that allows users to manage their tasks eff
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Simple-Task.git
-   cd todolist
+   git clone https://github.com/wolfrayet0855/Simple-Task.git
+   cd Simple Task
    ```
 2. Open the project in Xcode:
    ```bash
