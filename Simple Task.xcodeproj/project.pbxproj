@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A793EDD2C94A2A8002C2162 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EDC2C94A2A8002C2162 /* ToDoListApp.swift */; };
-		9A793EDF2C94A2A8002C2162 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EDE2C94A2A8002C2162 /* ToDoListView.swift */; };
+		9A793EDD2C94A2A8002C2162 /* Simple TaskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EDC2C94A2A8002C2162 /* Simple TaskApp.swift */; };
+		9A793EDF2C94A2A8002C2162 /* Simple TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EDE2C94A2A8002C2162 /* Simple TaskView.swift */; };
 		9A793EE12C94A2AB002C2162 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A793EE02C94A2AB002C2162 /* Assets.xcassets */; };
 		9A793EE42C94A2AB002C2162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A793EE32C94A2AB002C2162 /* Preview Assets.xcassets */; };
 		9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EEA2C94A71D002C2162 /* DetailView.swift */; };
-		9AAC97D72C96355000EECAE8 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* ToDo.swift */; };
+		9AAC97D72C96355000EECAE8 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* Simple Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9A0B3A892C9F0338008DAEBE /* MIT License.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "MIT License.md"; sourceTree = "<group>"; };
-		9A793ED92C94A2A8002C2162 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A793EDC2C94A2A8002C2162 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
-		9A793EDE2C94A2A8002C2162 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		9A793ED92C94A2A8002C2162 /* Simple Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simple Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A793EDC2C94A2A8002C2162 /* Simple TaskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple TaskApp.swift"; sourceTree = "<group>"; };
+		9A793EDE2C94A2A8002C2162 /* Simple TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple TaskView.swift"; sourceTree = "<group>"; };
 		9A793EE02C94A2AB002C2162 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A793EE32C94A2AB002C2162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9A793EEA2C94A71D002C2162 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		9AAC97D62C96355000EECAE8 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		9AAC97D62C96355000EECAE8 /* Simple Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple Task.swift"; sourceTree = "<group>"; };
 		9AEE79B02C966BD3000CC1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +41,7 @@
 		9A793ED02C94A2A8002C2162 = {
 			isa = PBXGroup;
 			children = (
-				9A793EDB2C94A2A8002C2162 /* ToDoList */,
+				9A793EDB2C94A2A8002C2162 /* Simple Task */,
 				9A793EDA2C94A2A8002C2162 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,24 +49,24 @@
 		9A793EDA2C94A2A8002C2162 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A793ED92C94A2A8002C2162 /* ToDoList.app */,
+				9A793ED92C94A2A8002C2162 /* Simple Task.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9A793EDB2C94A2A8002C2162 /* ToDoList */ = {
+		9A793EDB2C94A2A8002C2162 /* Simple Task */ = {
 			isa = PBXGroup;
 			children = (
 				9AEE79B02C966BD3000CC1BC /* Info.plist */,
-				9A793EDC2C94A2A8002C2162 /* ToDoListApp.swift */,
-				9AAC97D62C96355000EECAE8 /* ToDo.swift */,
-				9A793EDE2C94A2A8002C2162 /* ToDoListView.swift */,
+				9A793EDC2C94A2A8002C2162 /* Simple TaskApp.swift */,
+				9AAC97D62C96355000EECAE8 /* Simple Task.swift */,
+				9A793EDE2C94A2A8002C2162 /* Simple TaskView.swift */,
 				9A793EEA2C94A71D002C2162 /* DetailView.swift */,
 				9A793EE02C94A2AB002C2162 /* Assets.xcassets */,
 				9A0B3A892C9F0338008DAEBE /* MIT License.md */,
 				9A793EE22C94A2AB002C2162 /* Preview Content */,
 			);
-			path = ToDoList;
+			path = "Simple Task";
 			sourceTree = "<group>";
 		};
 		9A793EE22C94A2AB002C2162 /* Preview Content */ = {
@@ -80,9 +80,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9A793ED82C94A2A8002C2162 /* ToDoList */ = {
+		9A793ED82C94A2A8002C2162 /* Simple Task */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A793EE72C94A2AB002C2162 /* Build configuration list for PBXNativeTarget "ToDoList" */;
+			buildConfigurationList = 9A793EE72C94A2AB002C2162 /* Build configuration list for PBXNativeTarget "Simple Task" */;
 			buildPhases = (
 				9A793ED52C94A2A8002C2162 /* Sources */,
 				9A793ED62C94A2A8002C2162 /* Frameworks */,
@@ -92,9 +92,9 @@
 			);
 			dependencies = (
 			);
-			name = ToDoList;
+			name = "Simple Task";
 			productName = ToDoList;
-			productReference = 9A793ED92C94A2A8002C2162 /* ToDoList.app */;
+			productReference = 9A793ED92C94A2A8002C2162 /* Simple Task.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9A793ED42C94A2A8002C2162 /* Build configuration list for PBXProject "Simple Tasl" */;
+			buildConfigurationList = 9A793ED42C94A2A8002C2162 /* Build configuration list for PBXProject "Simple Task" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9A793ED82C94A2A8002C2162 /* ToDoList */,
+				9A793ED82C94A2A8002C2162 /* Simple Task */,
 			);
 		};
 /* End PBXProject section */
@@ -147,10 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AAC97D72C96355000EECAE8 /* ToDo.swift in Sources */,
-				9A793EDF2C94A2A8002C2162 /* ToDoListView.swift in Sources */,
+				9AAC97D72C96355000EECAE8 /* Simple Task.swift in Sources */,
+				9A793EDF2C94A2A8002C2162 /* Simple TaskView.swift in Sources */,
 				9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */,
-				9A793EDD2C94A2A8002C2162 /* ToDoListApp.swift in Sources */,
+				9A793EDD2C94A2A8002C2162 /* Simple TaskApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,11 +283,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Simple Task/Preview Content\"";
 				DEVELOPMENT_TEAM = P9Z5QB8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Info.plist;
+				INFOPLIST_FILE = "Simple Task/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -297,7 +297,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = beta.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -312,11 +312,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Simple Task/Preview Content\"";
 				DEVELOPMENT_TEAM = P9Z5QB8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Info.plist;
+				INFOPLIST_FILE = "Simple Task/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -326,7 +326,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = beta.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -337,7 +337,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9A793ED42C94A2A8002C2162 /* Build configuration list for PBXProject "Simple Tasl" */ = {
+		9A793ED42C94A2A8002C2162 /* Build configuration list for PBXProject "Simple Task" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9A793EE52C94A2AB002C2162 /* Debug */,
@@ -346,7 +346,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9A793EE72C94A2AB002C2162 /* Build configuration list for PBXNativeTarget "ToDoList" */ = {
+		9A793EE72C94A2AB002C2162 /* Build configuration list for PBXNativeTarget "Simple Task" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9A793EE82C94A2AB002C2162 /* Debug */,
