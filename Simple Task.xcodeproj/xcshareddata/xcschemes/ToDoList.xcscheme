@@ -18,7 +18,7 @@
                BlueprintIdentifier = "9A793ED82C94A2A8002C2162"
                BuildableName = "ToDoList.app"
                BlueprintName = "ToDoList"
-               ReferencedContainer = "container:ToDoList.xcodeproj">
+               ReferencedContainer = "container:Simple Tasl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "9A793ED82C94A2A8002C2162"
             BuildableName = "ToDoList.app"
             BlueprintName = "ToDoList"
-            ReferencedContainer = "container:ToDoList.xcodeproj">
+            ReferencedContainer = "container:Simple Tasl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -71,7 +71,7 @@
             BlueprintIdentifier = "9A793ED82C94A2A8002C2162"
             BuildableName = "ToDoList.app"
             BlueprintName = "ToDoList"
-            ReferencedContainer = "container:ToDoList.xcodeproj">
+            ReferencedContainer = "container:Simple Tasl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
