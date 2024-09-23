@@ -1,12 +1,13 @@
 //
 //  DetailView.swift
-//  ToDoList
+//  Simple Task
 //
 //  Created by user on 9/13/24.
 //
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,7 +15,8 @@ struct DetailView: View {
     @Environment(\.modelContext) var modelContext
 
     func scheduleNotification(for todo: ToDo) {
-        guard todo.reminderIsOn else { return }
+        // Check if the task is completed before scheduling the notification
+        guard todo.reminderIsOn && !todo.isCompleted else { return }
         let content = UNMutableNotificationContent()
         content.title = todo.item
         content.body = "Reminder: \(todo.item) is due!"
@@ -31,7 +33,7 @@ struct DetailView: View {
         }
     }
 
-    var body: some View { // Correctly defined body property
+    var body: some View {
         List {
             TextField("Input task here..", text: $toDo.item)
                 .font(.title)
@@ -39,7 +41,7 @@ struct DetailView: View {
                 .padding(.vertical)
                 .listRowSeparator(.hidden)
 
-            Toggle("Set Reminder:", isOn: $toDo.reminderIsOn )
+            Toggle("Set Reminder:", isOn: $toDo.reminderIsOn)
                 .padding(.top)
                 .listRowSeparator(.hidden)
 

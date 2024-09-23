@@ -1,14 +1,9 @@
-///
-//  ToDoListView.swift
-//  ToDoList
-//
-//  Created by user on 9/13/24.
-//
+//Simple TaskView.swift
+
 
 import SwiftUI
 import SwiftData
 import UserNotifications
-
 
 enum SortOption: String, CaseIterable {
     case today = "Today"
@@ -21,35 +16,47 @@ struct SortedToDoList: View {
     @Query var toDos: [ToDo]
     @Environment(\.modelContext) var modelContext
     let sortSelection: SortOption
+
     init(sortSelection: SortOption) {
         self.sortSelection = sortSelection
         switch self.sortSelection {
         case .today:
-              let today = Calendar.current.startOfDay(for: Date())
-              let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
-              _toDos = Query(filter: #Predicate {
-                  $0.dueDate >= today && $0.dueDate < tomorrow
-              })
+            let today = Calendar.current.startOfDay(for: Date())
+            let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
+            _toDos = Query(filter: #Predicate {
+                $0.dueDate >= today && $0.dueDate < tomorrow
+            })
         case .alphabetical:
             _toDos = Query(sort: \.item, animation: .default)
         case .chronological:
             _toDos = Query(sort: \.dueDate)
-       case .completed:
-            _toDos = Query(filter: #Predicate {$0.isCompleted == false})
-
+        case .completed:
+            _toDos = Query(filter: #Predicate { $0.isCompleted == false })
         }
     }
-    
-    var body: some View{
+
+    var sortedToDos: [ToDo] {
+        switch sortSelection {
+        case .today:
+            return toDos.sorted(by: { $0.dueDate < $1.dueDate })
+        case .alphabetical:
+            return toDos.sorted(by: { $0.item < $1.item })
+        case .chronological:
+            return toDos.sorted(by: { $0.dueDate < $1.dueDate })
+        case .completed:
+            return toDos.filter { !$0.isCompleted }
+        }
+    }
+
+    var body: some View {
         List {
-            ForEach(toDos) {toDo in
+            ForEach(sortedToDos) { toDo in
                 VStack(alignment: .leading) {
                     HStack {
-                        Image(systemName: toDo.isCompleted ? "checkmark.rectangle": "rectangle")
+                        Image(systemName: toDo.isCompleted ? "checkmark.rectangle" : "rectangle")
                             .onTapGesture {
                                 toDo.isCompleted.toggle()
                             }
-                        
                         NavigationLink {
                             DetailView(toDo: toDo)
                         } label: {
@@ -58,31 +65,29 @@ struct SortedToDoList: View {
                     }
                     .font(.title2)
                     HStack {
-                        Text(toDo.dueDate.formatted(date: .abbreviated, time:
-                                .shortened))
-                        .foregroundStyle(.secondary)
-                        if(toDo.reminderIsOn) {
+                        Text(toDo.dueDate.formatted(date: .abbreviated, time: .shortened))
+                            .foregroundStyle(.secondary)
+                        if toDo.reminderIsOn {
                             Image(systemName: "calendar.badge.clock")
                                 .symbolRenderingMode(.multicolor)
                         }
                     }
                 }
-                .swipeActions{
+                .swipeActions {
                     Button("Delete", role: .destructive) {
                         modelContext.delete(toDo)
                     }
                 }
             }
         }
-            
         .listStyle(.plain)
     }
 }
+
 struct ToDoListView: View {
     @State private var sheetIsPresented = false
     @State private var sortSelection: SortOption = .today
-    
-    
+
     var body: some View {
         NavigationStack {
             SortedToDoList(sortSelection: sortSelection)
@@ -98,7 +103,7 @@ struct ToDoListView: View {
                     }
                     ToolbarItem(placement: .bottomBar) {
                         Picker("", selection: $sortSelection) {
-                            ForEach(SortOption.allCases, id: \.self) {sortOrder in
+                            ForEach(SortOption.allCases, id: \.self) { sortOrder in
                                 Text(sortOrder.rawValue)
                             }
                         }

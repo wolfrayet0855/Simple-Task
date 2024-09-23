@@ -12,8 +12,21 @@
 		9A793EE12C94A2AB002C2162 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A793EE02C94A2AB002C2162 /* Assets.xcassets */; };
 		9A793EE42C94A2AB002C2162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A793EE32C94A2AB002C2162 /* Preview Assets.xcassets */; };
 		9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EEA2C94A71D002C2162 /* DetailView.swift */; };
-		9AAC97D72C96355000EECAE8 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* Simple Task.swift */; };
+		9AACE2602CA1D07B00517940 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* Simple Task.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9AACE23F2CA1C8E100517940 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9A0B3A892C9F0338008DAEBE /* MIT License.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "MIT License.md"; sourceTree = "<group>"; };
@@ -24,6 +37,8 @@
 		9A793EE32C94A2AB002C2162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9A793EEA2C94A71D002C2162 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		9AAC97D62C96355000EECAE8 /* Simple Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple Task.swift"; sourceTree = "<group>"; };
+		9AACE2292CA1C8E000517940 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9AACE22B2CA1C8E000517940 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		9AEE79B02C966BD3000CC1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				9A793EDB2C94A2A8002C2162 /* Simple Task */,
+				9AACE2282CA1C8E000517940 /* Frameworks */,
 				9A793EDA2C94A2A8002C2162 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +93,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		9AACE2282CA1C8E000517940 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9AACE2292CA1C8E000517940 /* WidgetKit.framework */,
+				9AACE22B2CA1C8E000517940 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -87,6 +112,7 @@
 				9A793ED52C94A2A8002C2162 /* Sources */,
 				9A793ED62C94A2A8002C2162 /* Frameworks */,
 				9A793ED72C94A2A8002C2162 /* Resources */,
+				9AACE23F2CA1C8E100517940 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -147,10 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AAC97D72C96355000EECAE8 /* Simple Task.swift in Sources */,
 				9A793EDF2C94A2A8002C2162 /* Simple TaskView.swift in Sources */,
 				9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */,
 				9A793EDD2C94A2A8002C2162 /* Simple TaskApp.swift in Sources */,
+				9AACE2602CA1D07B00517940 /* Simple Task.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +305,7 @@
 		9A793EE82C94A2AB002C2162 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -288,6 +315,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simple Task/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Simple Task";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -308,6 +336,7 @@
 		9A793EE92C94A2AB002C2162 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -317,6 +346,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simple Task/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Simple Task";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -326,7 +356,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTa;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -1,6 +1,6 @@
 //
-//  ToDoListApp.swift
-//  ToDoList
+// Simple TaskApp.swift
+//  Simple Task
 //
 //  Created by user on 9/13/24.
 //
@@ -30,5 +30,6 @@ struct ToDoListApp: App {
                 }
                 // Handle granted permission if needed
             }
+            
         }
     }
