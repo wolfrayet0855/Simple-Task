@@ -16,6 +16,9 @@ class ToDo {
     var notes = ""
     var isCompleted = false
 
+    // New property to support "All Day"
+    var isAllDay = false
+
     // Use the 'inverse' relationship here, but remove the .cascade option.
     @Relationship(inverse: \SubTask.parent) var subtasks: [SubTask] = []
 
@@ -23,7 +26,8 @@ class ToDo {
          reminderIsOn: Bool = false,
          dueDate: Date = .now + (60*60*24),
          notes: String = "",
-         isCompleted: Bool = false)
+         isCompleted: Bool = false,
+         isAllDay: Bool = false)  // new parameter
     {
         if item.isEmpty {
             print("Error: Item cannot be empty")
@@ -34,7 +38,8 @@ class ToDo {
         self.dueDate = dueDate
         self.notes = notes
         self.isCompleted = isCompleted
-        print("Initialized ToDo with item: \(item), Reminder: \(reminderIsOn), Due Date: \(dueDate), Notes: \(notes), Completed: \(isCompleted)")
+        self.isAllDay = isAllDay  // new assignment
+        print("Initialized ToDo with item: \(item), Reminder: \(reminderIsOn), Due Date: \(dueDate), Notes: \(notes), Completed: \(isCompleted), All Day: \(isAllDay)")
     }
 }
 

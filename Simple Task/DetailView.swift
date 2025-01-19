@@ -26,11 +26,15 @@ struct DetailView: View {
         content.body = "Reminder: \(todo.item) is due!"
         content.sound = UNNotificationSound.default
 
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
-                                                          from: todo.dueDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-
-        let request = UNNotificationRequest(identifier: todo.item, content: content, trigger: trigger)
+        let triggerDate = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: todo.dueDate
+        )
+        let request = UNNotificationRequest(
+            identifier: todo.item,
+            content: content,
+            trigger: UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        )
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Error scheduling notification: \(error)")
@@ -44,6 +48,7 @@ struct DetailView: View {
             TextField("Input task here..", text: $toDo.item)
                 .font(.title)
                 .textFieldStyle(.roundedBorder)
+                .keyboardType(.default) // Allows emojis
                 .padding(.vertical)
                 .listRowSeparator(.hidden)
 
@@ -51,16 +56,26 @@ struct DetailView: View {
                 .padding(.top)
                 .listRowSeparator(.hidden)
 
-            DatePicker("Date", selection: $toDo.dueDate)
+            Toggle("All Day", isOn: $toDo.isAllDay)
+                .padding(.top)
                 .listRowSeparator(.hidden)
-                .padding(.bottom)
                 .disabled(!toDo.reminderIsOn)
+
+            DatePicker(
+                "Date",
+                selection: $toDo.dueDate,
+                displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
+            )
+            .listRowSeparator(.hidden)
+            .padding(.bottom)
+            .disabled(!toDo.reminderIsOn)
 
             Text("Notes:")
                 .padding(.top)
 
             TextField("Notes", text: $toDo.notes, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
+                .keyboardType(.default) // Allows emojis
                 .listRowSeparator(.hidden)
 
             Toggle("Completed", isOn: $toDo.isCompleted)
@@ -90,6 +105,7 @@ struct DetailView: View {
                 HStack {
                     TextField("New Subtask", text: $newSubTaskName)
                         .textFieldStyle(.roundedBorder)
+                        .keyboardType(.default) // Allows emojis
 
                     Button(action: {
                         guard !newSubTaskName.isEmpty else { return }
@@ -112,9 +128,16 @@ struct DetailView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    print("Saving Task: \(toDo.item), Reminder: \(toDo.reminderIsOn), Due Date: \(toDo.dueDate)")
-                    modelContext.insert(toDo)
-                    scheduleNotification(for: toDo) // Schedule notification when saving
+                    // Check if the current `toDo` is already in any context:
+                    if toDo.modelContext == nil {
+                        modelContext.insert(toDo)
+                    }
+                    do {
+                        try modelContext.save()
+                        scheduleNotification(for: toDo)
+                    } catch {
+                        print("Error saving: \(error)")
+                    }
                     dismiss()
                 }
             }

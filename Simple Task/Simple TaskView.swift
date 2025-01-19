@@ -2,8 +2,6 @@
 //  Simple TaskView.swift
 //  Simple Task
 //
-//  Created by user on ...
-//
 
 import SwiftUI
 import SwiftData
@@ -26,7 +24,9 @@ struct SortedToDoList: View {
         switch self.sortSelection {
         case .today:
             let today = Calendar.current.startOfDay(for: Date())
-            let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
+            let tomorrow = Calendar.current.startOfDay(
+                for: Calendar.current.date(byAdding: .day, value: 1, to: today)!
+            )
             _toDos = Query(filter: #Predicate {
                 $0.dueDate >= today && $0.dueDate < tomorrow
             })
@@ -68,13 +68,22 @@ struct SortedToDoList: View {
                         }
                     }
                     .font(.title2)
-                    HStack {
-                        Text(toDo.dueDate.formatted(date: .abbreviated, time: .shortened))
-                            .foregroundStyle(.secondary)
-                        if toDo.reminderIsOn {
+                    
+                    // Show date/time only if reminder is on
+                    if toDo.reminderIsOn {
+                        HStack {
+                            // If it's all day, omit time; otherwise show time
+                            if toDo.isAllDay {
+                                Text(toDo.dueDate.formatted(date: .abbreviated, time: .omitted))
+                            } else {
+                                Text(toDo.dueDate.formatted(date: .abbreviated, time: .shortened))
+                            }
+                            
+                            // Calendar icon to confirm there's a reminder
                             Image(systemName: "calendar.badge.clock")
                                 .symbolRenderingMode(.multicolor)
                         }
+                        .foregroundStyle(.secondary)
                     }
                 }
                 .swipeActions {
@@ -125,7 +134,6 @@ struct ToDoListView: View {
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {
-        // Updated to contain both ToDo and SubTask for previews
         ToDoListView()
             .modelContainer(for: [ToDo.self, SubTask.self])
     }
