@@ -1,5 +1,9 @@
-//Simple TaskView.swift
-
+//
+//  Simple TaskView.swift
+//  Simple Task
+//
+//  Created by user on ...
+//
 
 import SwiftUI
 import SwiftData
@@ -121,6 +125,8 @@ struct ToDoListView: View {
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {
+        // Updated to contain both ToDo and SubTask for previews
         ToDoListView()
+            .modelContainer(for: [ToDo.self, SubTask.self])
     }
 }

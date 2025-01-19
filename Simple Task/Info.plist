@@ -3,9 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string>SimpleTaskLaunchScreen</string>
-	</dict>
+	<dict/>
 </dict>
 </plist>

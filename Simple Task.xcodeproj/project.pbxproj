@@ -13,6 +13,7 @@
 		9A793EE42C94A2AB002C2162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A793EE32C94A2AB002C2162 /* Preview Assets.xcassets */; };
 		9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EEA2C94A71D002C2162 /* DetailView.swift */; };
 		9AACE2602CA1D07B00517940 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* Simple Task.swift */; };
+		9AACE2802CA1FE2800517940 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AACE27F2CA1FE2800517940 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		9AAC97D62C96355000EECAE8 /* Simple Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple Task.swift"; sourceTree = "<group>"; };
 		9AACE2292CA1C8E000517940 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		9AACE22B2CA1C8E000517940 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		9AACE27F2CA1FE2800517940 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9AEE79B02C966BD3000CC1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +80,7 @@
 				9AAC97D62C96355000EECAE8 /* Simple Task.swift */,
 				9A793EDE2C94A2A8002C2162 /* Simple TaskView.swift */,
 				9A793EEA2C94A71D002C2162 /* DetailView.swift */,
+				9AACE27F2CA1FE2800517940 /* Launch Screen.storyboard */,
 				9A793EE02C94A2AB002C2162 /* Assets.xcassets */,
 				9A0B3A892C9F0338008DAEBE /* MIT License.md */,
 				9A793EE22C94A2AB002C2162 /* Preview Content */,
@@ -161,6 +164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AACE2802CA1FE2800517940 /* Launch Screen.storyboard in Resources */,
 				9A793EE42C94A2AB002C2162 /* Preview Assets.xcassets in Resources */,
 				9A793EE12C94A2AB002C2162 /* Assets.xcassets in Resources */,
 			);
@@ -308,16 +312,19 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simple Task/Preview Content\"";
-				DEVELOPMENT_TEAM = P9Z5QB8965;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P9Z5QB8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simple Task/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Simple Task";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -327,6 +334,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = beta.SimpleTask;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -339,16 +348,19 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simple Task/Preview Content\"";
-				DEVELOPMENT_TEAM = P9Z5QB8965;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P9Z5QB8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simple Task/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Simple Task";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -358,6 +370,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = beta.SimpleTask;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -11,8 +11,12 @@ import UserNotifications
 
 struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
-    @State var toDo: ToDo
     @Environment(\.modelContext) var modelContext
+
+    @State var toDo: ToDo
+
+    // For adding new subtasks
+    @State private var newSubTaskName = ""
 
     func scheduleNotification(for todo: ToDo) {
         // Check if the task is completed before scheduling the notification
@@ -22,7 +26,8 @@ struct DetailView: View {
         content.body = "Reminder: \(todo.item) is due!"
         content.sound = UNNotificationSound.default
 
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: todo.dueDate)
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                          from: todo.dueDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
 
         let request = UNNotificationRequest(identifier: todo.item, content: content, trigger: trigger)
@@ -35,6 +40,7 @@ struct DetailView: View {
 
     var body: some View {
         List {
+            // Main item fields
             TextField("Input task here..", text: $toDo.item)
                 .font(.title)
                 .textFieldStyle(.roundedBorder)
@@ -60,6 +66,42 @@ struct DetailView: View {
             Toggle("Completed", isOn: $toDo.isCompleted)
                 .padding(.top)
                 .listRowSeparator(.hidden)
+
+            // Subtasks Section
+            Section("Subtasks") {
+                ForEach(toDo.subtasks) { subtask in
+                    HStack {
+                        Button(action: {
+                            subtask.isCompleted.toggle()
+                        }) {
+                            Image(systemName: subtask.isCompleted ? "checkmark.circle.fill" : "circle")
+                                .foregroundStyle(subtask.isCompleted ? .green : .primary)
+                        }
+                        Text(subtask.name)
+                    }
+                }
+                .onDelete { indexSet in
+                    for index in indexSet {
+                        let removedSubTask = toDo.subtasks[index]
+                        modelContext.delete(removedSubTask)
+                    }
+                }
+
+                HStack {
+                    TextField("New Subtask", text: $newSubTaskName)
+                        .textFieldStyle(.roundedBorder)
+
+                    Button(action: {
+                        guard !newSubTaskName.isEmpty else { return }
+                        let subtask = SubTask(name: newSubTaskName, isCompleted: false, parent: toDo)
+                        toDo.subtasks.append(subtask)
+                        newSubTaskName = ""
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
         }
         .listStyle(.plain)
         .toolbar {
@@ -85,6 +127,6 @@ struct DetailView: View {
 #Preview {
     NavigationStack {
         DetailView(toDo: ToDo())
-            .modelContainer(for: ToDo.self)
+            .modelContainer(for: [ToDo.self, SubTask.self]) // Updated container
     }
 }
