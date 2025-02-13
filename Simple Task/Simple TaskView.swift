@@ -10,8 +10,8 @@ import UserNotifications
 enum SortOption: String, CaseIterable {
     case today = "Today"
     case chronological = "Date"
-    case notCompleted = "Open"
-    case completed = "Closed"
+    case open = "Open"
+    case closed = "Closed"
 }
 
 struct SortedToDoList: View {
@@ -24,22 +24,21 @@ struct SortedToDoList: View {
         switch self.sortSelection {
         case .today:
             let today = Calendar.current.startOfDay(for: Date())
-            let tomorrow = Calendar.current.startOfDay(
-                for: Calendar.current.date(byAdding: .day, value: 1, to: today)!
-            )
+            let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
             _toDos = Query(filter: #Predicate {
                 $0.dueDate >= today && $0.dueDate < tomorrow
             })
         case .chronological:
             _toDos = Query(sort: \.dueDate)
-        case .notCompleted:
+        case .open:
             _toDos = Query(filter: #Predicate { !$0.isCompleted })
-        case .completed:
+        case .closed:
             _toDos = Query(filter: #Predicate { $0.isCompleted })
         }
     }
 
     var sortedToDos: [ToDo] {
+        // Sort tasks by due date for consistency
         return toDos.sorted(by: { $0.dueDate < $1.dueDate })
     }
 
@@ -52,9 +51,7 @@ struct SortedToDoList: View {
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Button(action: {
-                                toDo.isCompleted.toggle()
-                            }) {
+                            Button(action: { toDo.isCompleted.toggle() }) {
                                 Image(systemName: toDo.isCompleted ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(toDo.isCompleted ? .green : .primary)
                             }
@@ -98,17 +95,24 @@ struct SortedToDoList: View {
 struct ToDoListView: View {
     @State private var sheetIsPresented = false
     @State private var sortSelection: SortOption = .today
+    @State private var graphIsActive = false
 
     var body: some View {
         NavigationStack {
             SortedToDoList(sortSelection: sortSelection)
                 .navigationTitle("Tasks")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    // Display plus and graph icons on the navigation bar
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button {
                             sheetIsPresented.toggle()
                         } label: {
                             Image(systemName: "plus")
+                        }
+                        Button {
+                            graphIsActive = true
+                        } label: {
+                            Image(systemName: "chart.bar")
                         }
                     }
                     ToolbarItem(placement: .bottomBar) {
@@ -126,6 +130,9 @@ struct ToDoListView: View {
                     NavigationStack {
                         DetailView(toDo: ToDo(item: ""))
                     }
+                }
+                .navigationDestination(isPresented: $graphIsActive) {
+                    GraphView()
                 }
         }
     }

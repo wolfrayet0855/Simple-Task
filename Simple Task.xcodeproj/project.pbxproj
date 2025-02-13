@@ -14,6 +14,7 @@
 		9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A793EEA2C94A71D002C2162 /* DetailView.swift */; };
 		9AACE2602CA1D07B00517940 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC97D62C96355000EECAE8 /* Simple Task.swift */; };
 		9AACE2802CA1FE2800517940 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AACE27F2CA1FE2800517940 /* Launch Screen.storyboard */; };
+		9AFD8F7A2D5EA9580034B804 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD8F792D5EA9580034B804 /* GraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,7 @@
 		9AACE22B2CA1C8E000517940 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		9AACE27F2CA1FE2800517940 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9AEE79B02C966BD3000CC1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9AFD8F792D5EA9580034B804 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		9A793EDB2C94A2A8002C2162 /* Simple Task */ = {
 			isa = PBXGroup;
 			children = (
+				9AFD8F792D5EA9580034B804 /* GraphView.swift */,
 				9AEE79B02C966BD3000CC1BC /* Info.plist */,
 				9A793EDC2C94A2A8002C2162 /* Simple TaskApp.swift */,
 				9AAC97D62C96355000EECAE8 /* Simple Task.swift */,
@@ -181,6 +184,7 @@
 				9A793EEB2C94A71D002C2162 /* DetailView.swift in Sources */,
 				9A793EDD2C94A2A8002C2162 /* Simple TaskApp.swift in Sources */,
 				9AACE2602CA1D07B00517940 /* Simple Task.swift in Sources */,
+				9AFD8F7A2D5EA9580034B804 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
