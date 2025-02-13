@@ -2,8 +2,6 @@
 //  Simple TaskView.swift
 //  Simple Task
 //
-//  Redesigned list view with a card-style presentation for tasks.
-//
 
 import SwiftUI
 import SwiftData
@@ -11,9 +9,9 @@ import UserNotifications
 
 enum SortOption: String, CaseIterable {
     case today = "Today"
-    case alphabetical = "A-Z"
     case chronological = "Date"
-    case completed = "Not Done"
+    case notCompleted = "Open"
+    case completed = "Closed"
 }
 
 struct SortedToDoList: View {
@@ -26,30 +24,23 @@ struct SortedToDoList: View {
         switch self.sortSelection {
         case .today:
             let today = Calendar.current.startOfDay(for: Date())
-            let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
+            let tomorrow = Calendar.current.startOfDay(
+                for: Calendar.current.date(byAdding: .day, value: 1, to: today)!
+            )
             _toDos = Query(filter: #Predicate {
                 $0.dueDate >= today && $0.dueDate < tomorrow
             })
-        case .alphabetical:
-            _toDos = Query(sort: \.item, animation: .default)
         case .chronological:
             _toDos = Query(sort: \.dueDate)
+        case .notCompleted:
+            _toDos = Query(filter: #Predicate { !$0.isCompleted })
         case .completed:
-            _toDos = Query(filter: #Predicate { $0.isCompleted == false })
+            _toDos = Query(filter: #Predicate { $0.isCompleted })
         }
     }
 
     var sortedToDos: [ToDo] {
-        switch sortSelection {
-        case .today:
-            return toDos.sorted(by: { $0.dueDate < $1.dueDate })
-        case .alphabetical:
-            return toDos.sorted(by: { $0.item < $1.item })
-        case .chronological:
-            return toDos.sorted(by: { $0.dueDate < $1.dueDate })
-        case .completed:
-            return toDos.filter { !$0.isCompleted }
-        }
+        return toDos.sorted(by: { $0.dueDate < $1.dueDate })
     }
 
     var body: some View {
@@ -61,7 +52,9 @@ struct SortedToDoList: View {
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Button(action: { toDo.isCompleted.toggle() }) {
+                            Button(action: {
+                                toDo.isCompleted.toggle()
+                            }) {
                                 Image(systemName: toDo.isCompleted ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(toDo.isCompleted ? .green : .primary)
                             }
@@ -122,6 +115,8 @@ struct ToDoListView: View {
                         Picker("", selection: $sortSelection) {
                             ForEach(SortOption.allCases, id: \.self) { option in
                                 Text(option.rawValue)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.5)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -129,7 +124,6 @@ struct ToDoListView: View {
                 }
                 .sheet(isPresented: $sheetIsPresented) {
                     NavigationStack {
-                        // Create a new task using an empty item for editing
                         DetailView(toDo: ToDo(item: ""))
                     }
                 }

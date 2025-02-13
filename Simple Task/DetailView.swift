@@ -70,7 +70,7 @@ struct DetailView: View {
                 }
                 
                 Section {
-                    Toggle("Completed", isOn: $toDo.isCompleted)
+                    Toggle("Closed", isOn: $toDo.isCompleted)
                 }
                 
                 Section(header: Text("Subtasks").font(.headline)) {
