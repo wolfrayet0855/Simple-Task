@@ -11,9 +11,8 @@ import UserNotifications
 
 @main
 struct ToDoListApp: App {
-
     init() {
-        requestNotificationPermission() // Request permission on app launch
+        requestNotificationPermission()
     }
 
     var body: some Scene {
@@ -31,4 +30,3 @@ struct ToDoListApp: App {
         }
     }
 }
-

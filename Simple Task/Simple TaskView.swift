@@ -1,12 +1,8 @@
-//
-//  Simple TaskView.swift
-//  Simple Task
-//
-
 import SwiftUI
 import SwiftData
 import UserNotifications
 
+// Define the sort options.
 enum SortOption: String, CaseIterable {
     case today = "Today"
     case chronological = "Date"
@@ -14,6 +10,7 @@ enum SortOption: String, CaseIterable {
     case closed = "Closed"
 }
 
+// Define the sorted list view.
 struct SortedToDoList: View {
     @Query var toDos: [ToDo]
     @Environment(\.modelContext) var modelContext
@@ -38,8 +35,7 @@ struct SortedToDoList: View {
     }
 
     var sortedToDos: [ToDo] {
-        // Sort tasks by due date for consistency
-        return toDos.sorted(by: { $0.dueDate < $1.dueDate })
+        return toDos.sorted { $0.dueDate < $1.dueDate }
     }
 
     var body: some View {
@@ -51,7 +47,9 @@ struct SortedToDoList: View {
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Button(action: { toDo.isCompleted.toggle() }) {
+                            Button(action: {
+                                toDo.isCompleted.toggle()
+                            }) {
                                 Image(systemName: toDo.isCompleted ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(toDo.isCompleted ? .green : .primary)
                             }
@@ -92,6 +90,7 @@ struct SortedToDoList: View {
     }
 }
 
+// Main view that wraps SortedToDoList and provides navigation.
 struct ToDoListView: View {
     @State private var sheetIsPresented = false
     @State private var sortSelection: SortOption = .today
@@ -102,7 +101,13 @@ struct ToDoListView: View {
             SortedToDoList(sortSelection: sortSelection)
                 .navigationTitle("Tasks")
                 .toolbar {
-                    // Display plus and graph icons on the navigation bar
+                    // Settings icon on the left
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink(destination: SettingsView()) {
+                            Image(systemName: "gearshape")
+                        }
+                    }
+                    // Plus and graph icons on the right
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button {
                             sheetIsPresented.toggle()

@@ -1,11 +1,3 @@
-//
-//  DetailView.swift
-//  Simple Task
-//
-//  Redesigned: Due Date is required and now includes an integrated "All Day" toggle.
-//  Reminder uses the selected due date for notifications.
-//
-
 import SwiftUI
 import SwiftData
 import UserNotifications
@@ -30,9 +22,10 @@ struct DetailView: View {
         content.body = "Reminder: \(todo.item) is due!"
         content.sound = .default
 
+        // Use the custom reminder date instead of the due date.
         let triggerDate = Calendar.current.dateComponents(
             [.year, .month, .day, .hour, .minute, .second],
-            from: todo.dueDate
+            from: todo.reminderDate
         )
         let request = UNNotificationRequest(
             identifier: todo.item,
@@ -54,7 +47,7 @@ struct DetailView: View {
                         .font(.title2)
                 }
                 
-                // Due Date section now includes the All Day option.
+                // Due Date section remains (with All Day toggle).
                 Section(header: Text("Due Date *").font(.headline)) {
                     DatePicker(
                         "Select Due Date",
@@ -67,37 +60,20 @@ struct DetailView: View {
                         .toggleStyle(SwitchToggleStyle(tint: .blue))
                 }
                 
-                Section(header: Text("Category").font(.headline)) {
-                    Picker("Category", selection: $toDo.category) {
-                        Text("Work").tag("Work")
-                        Text("Personal").tag("Personal")
-                        Text("Fitness").tag("Fitness")
-                        Text("Shopping").tag("Shopping")
-                        Text("Other").tag("Other")
-                    }
-                    .pickerStyle(.menu)
-                }
-                
+                // Reminder section with custom reminder date.
                 Section(header: Text("Reminder").font(.headline)) {
                     Toggle("Enable Reminder", isOn: $toDo.reminderIsOn)
                     if toDo.reminderIsOn {
-                        Text("Reminder will be set for the selected due date.")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        DatePicker(
+                            "Select Reminder Date",
+                            selection: $toDo.reminderDate,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                        .accentColor(.primary)
                     }
                 }
                 
-                Section(header: Text("Notes").font(.headline)) {
-                    TextEditor(text: $toDo.notes)
-                        .frame(height: 100)
-                        .overlay(RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray.opacity(0.3)))
-                }
-                
-                Section {
-                    Toggle("Completed", isOn: $toDo.isCompleted)
-                }
-                
+                // Subtasks section.
                 Section(header: Text("Subtasks").font(.headline)) {
                     ForEach(toDo.subtasks) { subtask in
                         HStack {

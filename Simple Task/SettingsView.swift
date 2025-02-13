@@ -35,7 +35,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Close") {
-                        // Depending on presentation, dismiss the view here.
+                        // Add dismiss functionality if presented modally.
                     }
                 }
             }
@@ -48,3 +48,4 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
+
