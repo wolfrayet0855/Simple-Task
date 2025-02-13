@@ -2,8 +2,8 @@
 //  DetailView.swift
 //  Simple Task
 //
-//  Redesigned for a modern, clean look using Form and grouped sections.
-//  Updated to hide the default back button.
+//  Redesigned: Due Date is required and now includes an integrated "All Day" toggle.
+//  Reminder uses the selected due date for notifications.
 //
 
 import SwiftUI
@@ -15,12 +15,15 @@ struct DetailView: View {
     @Environment(\.modelContext) var modelContext
 
     @State var toDo: ToDo
-
-    // For adding new subtasks
     @State private var newSubTaskName = ""
+    @State private var showAlert = false
+
+    // Ensure the due date is today or later.
+    private var isDueDateValid: Bool {
+        return toDo.dueDate >= Calendar.current.startOfDay(for: Date())
+    }
 
     func scheduleNotification(for todo: ToDo) {
-        // Only schedule if reminder is on and the task isn’t already completed
         guard todo.reminderIsOn && !todo.isCompleted else { return }
         let content = UNMutableNotificationContent()
         content.title = todo.item
@@ -51,32 +54,56 @@ struct DetailView: View {
                         .font(.title2)
                 }
                 
+                // Due Date section now includes the All Day option.
+                Section(header: Text("Due Date *").font(.headline)) {
+                    DatePicker(
+                        "Select Due Date",
+                        selection: $toDo.dueDate,
+                        displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
+                    )
+                    .accentColor(isDueDateValid ? .primary : .red)
+                    
+                    Toggle("All Day", isOn: $toDo.isAllDay)
+                        .toggleStyle(SwitchToggleStyle(tint: .blue))
+                }
+                
+                Section(header: Text("Category").font(.headline)) {
+                    Picker("Category", selection: $toDo.category) {
+                        Text("Work").tag("Work")
+                        Text("Personal").tag("Personal")
+                        Text("Fitness").tag("Fitness")
+                        Text("Shopping").tag("Shopping")
+                        Text("Other").tag("Other")
+                    }
+                    .pickerStyle(.menu)
+                }
+                
                 Section(header: Text("Reminder").font(.headline)) {
                     Toggle("Enable Reminder", isOn: $toDo.reminderIsOn)
                     if toDo.reminderIsOn {
-                        Toggle("All Day", isOn: $toDo.isAllDay)
-                        DatePicker(
-                            "Due Date",
-                            selection: $toDo.dueDate,
-                            displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
-                        )
+                        Text("Reminder will be set for the selected due date.")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
                 }
                 
                 Section(header: Text("Notes").font(.headline)) {
                     TextEditor(text: $toDo.notes)
                         .frame(height: 100)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.3)))
+                        .overlay(RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray.opacity(0.3)))
                 }
                 
                 Section {
-                    Toggle("Closed", isOn: $toDo.isCompleted)
+                    Toggle("Completed", isOn: $toDo.isCompleted)
                 }
                 
                 Section(header: Text("Subtasks").font(.headline)) {
                     ForEach(toDo.subtasks) { subtask in
                         HStack {
-                            Button(action: { subtask.isCompleted.toggle() }) {
+                            Button(action: {
+                                subtask.isCompleted.toggle()
+                            }) {
                                 Image(systemName: subtask.isCompleted ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(subtask.isCompleted ? .green : .primary)
                             }
@@ -105,7 +132,7 @@ struct DetailView: View {
                 }
             }
             .navigationTitle("Edit Task")
-            .navigationBarBackButtonHidden(true)  // Hides the default back button
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -114,6 +141,10 @@ struct DetailView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
+                        guard isDueDateValid else {
+                            showAlert = true
+                            return
+                        }
                         if toDo.modelContext == nil {
                             modelContext.insert(toDo)
                         }
@@ -125,16 +156,15 @@ struct DetailView: View {
                         }
                         dismiss()
                     }
+                    .disabled(!isDueDateValid)
                 }
             }
+            .alert("Invalid Due Date", isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Please select a due date that is today or later.")
+            }
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        DetailView(toDo: ToDo(item: "Sample Task"))
-            .modelContainer(for: [ToDo.self, SubTask.self])
     }
 }
 

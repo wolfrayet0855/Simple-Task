@@ -16,6 +16,7 @@ class ToDo: Identifiable {
     var notes = ""
     var isCompleted = false
     var isAllDay = false
+    var category: String = "Work" // New task category property
     @Relationship(inverse: \SubTask.parent) var subtasks: [SubTask] = []
 
     init(item: String = "",
@@ -23,13 +24,15 @@ class ToDo: Identifiable {
          dueDate: Date = Date().addingTimeInterval(60*60*24),
          notes: String = "",
          isCompleted: Bool = false,
-         isAllDay: Bool = false) {
+         isAllDay: Bool = false,
+         category: String = "Work") {
         self.item = item
         self.reminderIsOn = reminderIsOn
         self.dueDate = dueDate
         self.notes = notes
         self.isCompleted = isCompleted
         self.isAllDay = isAllDay
+        self.category = category
     }
 }
 
@@ -45,4 +48,3 @@ class SubTask: Identifiable {
         self.parent = parent
     }
 }
-
