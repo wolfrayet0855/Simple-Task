@@ -2,7 +2,8 @@
 //  DetailView.swift
 //  Simple Task
 //
-//  Created by user on 9/13/24.
+//  Redesigned for a modern, clean look using Form and grouped sections.
+//  Updated to hide the default back button.
 //
 
 import SwiftUI
@@ -19,12 +20,12 @@ struct DetailView: View {
     @State private var newSubTaskName = ""
 
     func scheduleNotification(for todo: ToDo) {
-        // Check if the task is completed before scheduling the notification
+        // Only schedule if reminder is on and the task isn’t already completed
         guard todo.reminderIsOn && !todo.isCompleted else { return }
         let content = UNMutableNotificationContent()
         content.title = todo.item
         content.body = "Reminder: \(todo.item) is due!"
-        content.sound = UNNotificationSound.default
+        content.sound = .default
 
         let triggerDate = Calendar.current.dateComponents(
             [.year, .month, .day, .hour, .minute, .second],
@@ -43,113 +44,97 @@ struct DetailView: View {
     }
 
     var body: some View {
-        List {
-            // Main item fields
-            TextField("Input task here..", text: $toDo.item)
-                .font(.title)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.default) // Allows emojis
-                .padding(.vertical)
-                .listRowSeparator(.hidden)
-
-            Toggle("Set Reminder:", isOn: $toDo.reminderIsOn)
-                .padding(.top)
-                .listRowSeparator(.hidden)
-
-            Toggle("All Day", isOn: $toDo.isAllDay)
-                .padding(.top)
-                .listRowSeparator(.hidden)
-                .disabled(!toDo.reminderIsOn)
-
-            DatePicker(
-                "Date",
-                selection: $toDo.dueDate,
-                displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
-            )
-            .listRowSeparator(.hidden)
-            .padding(.bottom)
-            .disabled(!toDo.reminderIsOn)
-
-            Text("Notes:")
-                .padding(.top)
-
-            TextField("Notes", text: $toDo.notes, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.default) // Allows emojis
-                .listRowSeparator(.hidden)
-
-            Toggle("Completed", isOn: $toDo.isCompleted)
-                .padding(.top)
-                .listRowSeparator(.hidden)
-
-            // Subtasks Section
-            Section("Subtasks") {
-                ForEach(toDo.subtasks) { subtask in
-                    HStack {
-                        Button(action: {
-                            subtask.isCompleted.toggle()
-                        }) {
-                            Image(systemName: subtask.isCompleted ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(subtask.isCompleted ? .green : .primary)
+        NavigationStack {
+            Form {
+                Section(header: Text("Task Details").font(.headline)) {
+                    TextField("Enter task name...", text: $toDo.item)
+                        .font(.title2)
+                }
+                
+                Section(header: Text("Reminder").font(.headline)) {
+                    Toggle("Enable Reminder", isOn: $toDo.reminderIsOn)
+                    if toDo.reminderIsOn {
+                        Toggle("All Day", isOn: $toDo.isAllDay)
+                        DatePicker(
+                            "Due Date",
+                            selection: $toDo.dueDate,
+                            displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
+                        )
+                    }
+                }
+                
+                Section(header: Text("Notes").font(.headline)) {
+                    TextEditor(text: $toDo.notes)
+                        .frame(height: 100)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.3)))
+                }
+                
+                Section {
+                    Toggle("Completed", isOn: $toDo.isCompleted)
+                }
+                
+                Section(header: Text("Subtasks").font(.headline)) {
+                    ForEach(toDo.subtasks) { subtask in
+                        HStack {
+                            Button(action: { subtask.isCompleted.toggle() }) {
+                                Image(systemName: subtask.isCompleted ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(subtask.isCompleted ? .green : .primary)
+                            }
+                            Text(subtask.name)
                         }
-                        Text(subtask.name)
+                    }
+                    .onDelete { indexSet in
+                        for index in indexSet {
+                            let removedSubTask = toDo.subtasks[index]
+                            modelContext.delete(removedSubTask)
+                        }
+                    }
+                    
+                    HStack {
+                        TextField("Add new subtask", text: $newSubTaskName)
+                        Button(action: {
+                            guard !newSubTaskName.isEmpty else { return }
+                            let newSubTask = SubTask(name: newSubTaskName, isCompleted: false, parent: toDo)
+                            toDo.subtasks.append(newSubTask)
+                            newSubTaskName = ""
+                        }) {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
-                .onDelete { indexSet in
-                    for index in indexSet {
-                        let removedSubTask = toDo.subtasks[index]
-                        modelContext.delete(removedSubTask)
+            }
+            .navigationTitle("Edit Task")
+            .navigationBarBackButtonHidden(true)  // Hides the default back button
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
-
-                HStack {
-                    TextField("New Subtask", text: $newSubTaskName)
-                        .textFieldStyle(.roundedBorder)
-                        .keyboardType(.default) // Allows emojis
-
-                    Button(action: {
-                        guard !newSubTaskName.isEmpty else { return }
-                        let subtask = SubTask(name: newSubTaskName, isCompleted: false, parent: toDo)
-                        toDo.subtasks.append(subtask)
-                        newSubTaskName = ""
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.blue)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        if toDo.modelContext == nil {
+                            modelContext.insert(toDo)
+                        }
+                        do {
+                            try modelContext.save()
+                            scheduleNotification(for: toDo)
+                        } catch {
+                            print("Error saving: \(error)")
+                        }
+                        dismiss()
                     }
                 }
             }
         }
-        .listStyle(.plain)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") {
-                    dismiss()
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Save") {
-                    // Check if the current `toDo` is already in any context:
-                    if toDo.modelContext == nil {
-                        modelContext.insert(toDo)
-                    }
-                    do {
-                        try modelContext.save()
-                        scheduleNotification(for: toDo)
-                    } catch {
-                        print("Error saving: \(error)")
-                    }
-                    dismiss()
-                }
-            }
-        }
-        .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
     NavigationStack {
-        DetailView(toDo: ToDo())
-            .modelContainer(for: [ToDo.self, SubTask.self]) // Updated container
+        DetailView(toDo: ToDo(item: "Sample Task"))
+            .modelContainer(for: [ToDo.self, SubTask.self])
     }
 }
+

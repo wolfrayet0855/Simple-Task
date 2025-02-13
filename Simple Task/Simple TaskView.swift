@@ -2,6 +2,8 @@
 //  Simple TaskView.swift
 //  Simple Task
 //
+//  Redesigned list view with a card-style presentation for tasks.
+//
 
 import SwiftUI
 import SwiftData
@@ -24,9 +26,7 @@ struct SortedToDoList: View {
         switch self.sortSelection {
         case .today:
             let today = Calendar.current.startOfDay(for: Date())
-            let tomorrow = Calendar.current.startOfDay(
-                for: Calendar.current.date(byAdding: .day, value: 1, to: today)!
-            )
+            let tomorrow = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: today)!)
             _toDos = Query(filter: #Predicate {
                 $0.dueDate >= today && $0.dueDate < tomorrow
             })
@@ -55,40 +55,45 @@ struct SortedToDoList: View {
     var body: some View {
         List {
             ForEach(sortedToDos) { toDo in
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: toDo.isCompleted ? "checkmark.rectangle" : "rectangle")
-                            .onTapGesture {
-                                toDo.isCompleted.toggle()
-                            }
-                        NavigationLink {
-                            DetailView(toDo: toDo)
-                        } label: {
-                            Text(toDo.item)
-                        }
-                    }
-                    .font(.title2)
-                    
-                    // Show date/time only if reminder is on
-                    if toDo.reminderIsOn {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+                    VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            // If it's all day, omit time; otherwise show time
-                            if toDo.isAllDay {
-                                Text(toDo.dueDate.formatted(date: .abbreviated, time: .omitted))
-                            } else {
-                                Text(toDo.dueDate.formatted(date: .abbreviated, time: .shortened))
+                            Button(action: { toDo.isCompleted.toggle() }) {
+                                Image(systemName: toDo.isCompleted ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(toDo.isCompleted ? .green : .primary)
                             }
-                            
-                            // Calendar icon to confirm there's a reminder
-                            Image(systemName: "calendar.badge.clock")
-                                .symbolRenderingMode(.multicolor)
+                            NavigationLink(destination: DetailView(toDo: toDo)) {
+                                Text(toDo.item)
+                                    .font(.headline)
+                            }
                         }
-                        .foregroundStyle(.secondary)
+                        if toDo.reminderIsOn {
+                            HStack(spacing: 4) {
+                                if toDo.isAllDay {
+                                    Text(toDo.dueDate, format: .dateTime.month().day().year())
+                                } else {
+                                    Text(toDo.dueDate, format: .dateTime.month().day().hour().minute())
+                                }
+                                Image(systemName: "calendar.badge.clock")
+                                    .symbolRenderingMode(.multicolor)
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        }
                     }
+                    .padding()
                 }
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
+                .padding(.vertical, 4)
                 .swipeActions {
-                    Button("Delete", role: .destructive) {
+                    Button(role: .destructive) {
                         modelContext.delete(toDo)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
                     }
                 }
             }
@@ -104,8 +109,7 @@ struct ToDoListView: View {
     var body: some View {
         NavigationStack {
             SortedToDoList(sortSelection: sortSelection)
-                .navigationTitle("Actions:")
-                .navigationBarTitleDisplayMode(.automatic)
+                .navigationTitle("Tasks")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -116,8 +120,8 @@ struct ToDoListView: View {
                     }
                     ToolbarItem(placement: .bottomBar) {
                         Picker("", selection: $sortSelection) {
-                            ForEach(SortOption.allCases, id: \.self) { sortOrder in
-                                Text(sortOrder.rawValue)
+                            ForEach(SortOption.allCases, id: \.self) { option in
+                                Text(option.rawValue)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -125,7 +129,8 @@ struct ToDoListView: View {
                 }
                 .sheet(isPresented: $sheetIsPresented) {
                     NavigationStack {
-                        DetailView(toDo: ToDo())
+                        // Create a new task using an empty item for editing
+                        DetailView(toDo: ToDo(item: ""))
                     }
                 }
         }
@@ -138,3 +143,4 @@ struct ToDoListView_Previews: PreviewProvider {
             .modelContainer(for: [ToDo.self, SubTask.self])
     }
 }
+
