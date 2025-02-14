@@ -1,9 +1,3 @@
-//
-//  Simple Task.swift
-//  Simple Task
-//
-//  Redesigned models with Identifiable conformance for SwiftUI
-//
 import Foundation
 import SwiftData
 
@@ -11,18 +5,17 @@ import SwiftData
 class ToDo: Identifiable {
     @Attribute(.unique) var item = ""
     var reminderIsOn = false
-    var dueDate = Date().addingTimeInterval(60*60*24)
-    // Removed notes property
-    var reminderDate = Date().addingTimeInterval(60*60*24) // New custom reminder date property.
+    var dueDate = Date() // Changed default from Date().addingTimeInterval(60*60*24) to Date()
+    var reminderDate = Date() // Changed default from Date().addingTimeInterval(60*60*24) to Date()
     var isCompleted = false
     var isAllDay = false
-    var category: String = "Work" // Still stored; will be managed via SettingsView.
+    var category: String = "Work" // Managed via the category picker in DetailView.
     @Relationship(inverse: \SubTask.parent) var subtasks: [SubTask] = []
 
     init(item: String = "",
          reminderIsOn: Bool = false,
-         dueDate: Date = Date().addingTimeInterval(60*60*24),
-         reminderDate: Date = Date().addingTimeInterval(60*60*24),
+         dueDate: Date = Date(), // Updated default value here as well.
+         reminderDate: Date = Date(), // Updated default value here as well.
          isCompleted: Bool = false,
          isAllDay: Bool = false,
          category: String = "Work") {
@@ -48,3 +41,9 @@ class SubTask: Identifiable {
         self.parent = parent
     }
 }
+
+import Combine
+class CategoryManager: ObservableObject {
+    @Published var categories: [String] = ["Work", "Personal", "Fitness", "Shopping", "Other"]
+}
+

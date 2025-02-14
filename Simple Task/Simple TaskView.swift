@@ -47,36 +47,39 @@ struct SortedToDoList: View {
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Button(action: {
-                                toDo.isCompleted.toggle()
-                            }) {
-                                Image(systemName: toDo.isCompleted ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(toDo.isCompleted ? .green : .primary)
-                            }
                             NavigationLink(destination: DetailView(toDo: toDo)) {
                                 Text(toDo.item)
                                     .font(.headline)
                             }
                         }
-                        if toDo.reminderIsOn {
-                            HStack(spacing: 4) {
-                                if toDo.isAllDay {
-                                    Text(toDo.dueDate, format: .dateTime.month().day().year())
-                                } else {
-                                    Text(toDo.dueDate, format: .dateTime.month().day().hour().minute())
-                                }
-                                Image(systemName: "calendar.badge.clock")
-                                    .symbolRenderingMode(.multicolor)
+                        // Always show the due date (not the reminder date)
+                        HStack(spacing: 4) {
+                            if toDo.isAllDay {
+                                Text(toDo.dueDate, format: .dateTime.month().day().year())
+                            } else {
+                                Text(toDo.dueDate, format: .dateTime.month().day().hour().minute())
                             }
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            Image(systemName: "calendar")
                         }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                     .padding()
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                 .padding(.vertical, 4)
+                // Left swipe action to toggle completion.
+                .swipeActions(edge: .leading) {
+                    Button {
+                        toDo.isCompleted.toggle()
+                        try? modelContext.save()
+                    } label: {
+                        Label(toDo.isCompleted ? "Undo" : "Complete", systemImage: toDo.isCompleted ? "arrow.uturn.backward.circle" : "checkmark.circle")
+                    }
+                    .tint(toDo.isCompleted ? .gray : .green)
+                }
+                // Right swipe action for deletion.
                 .swipeActions {
                     Button(role: .destructive) {
                         modelContext.delete(toDo)
@@ -101,13 +104,11 @@ struct ToDoListView: View {
             SortedToDoList(sortSelection: sortSelection)
                 .navigationTitle("Tasks")
                 .toolbar {
-                    // Settings icon on the left
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink(destination: SettingsView()) {
                             Image(systemName: "gearshape")
                         }
                     }
-                    // Plus and graph icons on the right
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         Button {
                             sheetIsPresented.toggle()

@@ -5,6 +5,7 @@ import UserNotifications
 struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject var categoryManager: CategoryManager  // Shared category manager
 
     @State var toDo: ToDo
     @State private var newSubTaskName = ""
@@ -22,7 +23,6 @@ struct DetailView: View {
         content.body = "Reminder: \(todo.item) is due!"
         content.sound = .default
 
-        // Use the custom reminder date instead of the due date.
         let triggerDate = Calendar.current.dateComponents(
             [.year, .month, .day, .hour, .minute, .second],
             from: todo.reminderDate
@@ -47,7 +47,6 @@ struct DetailView: View {
                         .font(.title2)
                 }
                 
-                // Due Date section remains (with All Day toggle).
                 Section(header: Text("Due Date *").font(.headline)) {
                     DatePicker(
                         "Select Due Date",
@@ -60,7 +59,6 @@ struct DetailView: View {
                         .toggleStyle(SwitchToggleStyle(tint: .blue))
                 }
                 
-                // Reminder section with custom reminder date.
                 Section(header: Text("Reminder").font(.headline)) {
                     Toggle("Enable Reminder", isOn: $toDo.reminderIsOn)
                     if toDo.reminderIsOn {
@@ -73,7 +71,14 @@ struct DetailView: View {
                     }
                 }
                 
-                // Subtasks section.
+                Section(header: Text("Category").font(.headline)) {
+                    Picker("Select Category", selection: $toDo.category) {
+                        ForEach(categoryManager.categories, id: \.self) { category in
+                            Text(category).tag(category)
+                        }
+                    }
+                }
+                
                 Section(header: Text("Subtasks").font(.headline)) {
                     ForEach(toDo.subtasks) { subtask in
                         HStack {
@@ -105,6 +110,11 @@ struct DetailView: View {
                                 .foregroundColor(.blue)
                         }
                     }
+                }
+                
+                // New Completion section to manually mark the task complete.
+                Section(header: Text("Completion").font(.headline)) {
+                    Toggle("Mark as Complete", isOn: $toDo.isCompleted)
                 }
             }
             .navigationTitle("Edit Task")

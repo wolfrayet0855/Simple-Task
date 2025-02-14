@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var categories: [String] = ["Work", "Personal", "Fitness", "Shopping", "Other"]
+    @EnvironmentObject var categoryManager: CategoryManager  // Use shared category manager
     @State private var newCategory = ""
 
     var body: some View {
@@ -9,11 +9,11 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Category Tags").font(.headline)) {
                     List {
-                        ForEach(categories, id: \.self) { category in
+                        ForEach(categoryManager.categories, id: \.self) { category in
                             Text(category)
                         }
                         .onDelete { indexSet in
-                            categories.remove(atOffsets: indexSet)
+                            categoryManager.categories.remove(atOffsets: indexSet)
                         }
                     }
                 }
@@ -23,7 +23,9 @@ struct SettingsView: View {
                         TextField("New Category", text: $newCategory)
                         Button(action: {
                             guard !newCategory.isEmpty else { return }
-                            categories.append(newCategory)
+                            if !categoryManager.categories.contains(newCategory) {
+                                categoryManager.categories.append(newCategory)
+                            }
                             newCategory = ""
                         }) {
                             Image(systemName: "plus.circle.fill")
@@ -32,20 +34,17 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Close") {
-                        // Add dismiss functionality if presented modally.
-                    }
-                }
-            }
+            // Removed the custom toolbar back/close button so only the system's back button appears.
         }
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        NavigationStack {
+            SettingsView()
+                .environmentObject(CategoryManager())
+        }
     }
 }
 

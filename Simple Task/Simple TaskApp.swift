@@ -1,10 +1,3 @@
-//
-//  Simple TaskApp.swift
-//  Simple Task
-//
-//  Redesigned main app file with notification permission request on launch.
-//
-
 import SwiftUI
 import SwiftData
 import UserNotifications
@@ -19,6 +12,7 @@ struct ToDoListApp: App {
         WindowGroup {
             ToDoListView()
                 .modelContainer(for: [ToDo.self, SubTask.self])
+                .environmentObject(CategoryManager())  // Inject shared CategoryManager here
         }
     }
 
@@ -30,3 +24,4 @@ struct ToDoListApp: App {
         }
     }
 }
+
