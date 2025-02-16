@@ -4,6 +4,15 @@ import UserNotifications
 
 @main
 struct ToDoListApp: App {
+    // Use a closure to initialize the container so we can catch errors.
+    let container: ModelContainer = {
+        do {
+            return try ModelContainer(for: ToDo.self, SubTask.self)
+        } catch {
+            fatalError("Error initializing ModelContainer: \(error)")
+        }
+    }()
+
     init() {
         requestNotificationPermission()
     }
@@ -11,8 +20,8 @@ struct ToDoListApp: App {
     var body: some Scene {
         WindowGroup {
             ToDoListView()
-                .modelContainer(for: [ToDo.self, SubTask.self])
-                .environmentObject(CategoryManager())  // Inject shared CategoryManager here
+                .modelContainer(container) // Inject the persistent container.
+                .environmentObject(CategoryManager()) // Shared category manager.
         }
     }
 
@@ -24,4 +33,5 @@ struct ToDoListApp: App {
         }
     }
 }
+
 
