@@ -25,6 +25,9 @@ targets:
       path: Simple Task/SimpleTask.entitlements
       properties:
         com.apple.security.application-groups: ["group.beta.SimpleTask"]
+        com.apple.developer.associated-domains: ["applinks:task.shapehaveninnovations.com"]
+        com.apple.developer.icloud-container-identifiers: ["iCloud.beta.SimpleTask"]
+        com.apple.developer.icloud-services: ["CloudKit"]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask
