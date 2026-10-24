@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0C80F27B4590A8FE45E1D51F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F22BD518029E49D244F8DF2 /* GraphView.swift */; };
+		10D3F19513CC7D03CB1947C0 /* Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4534F63998B4A9F4F38FDB /* Completion.swift */; };
 		1318237CE810979703AEF819 /* SchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2453C66E6DBF12D2AF2FF2 /* SchemaV2.swift */; };
 		14DC1FE9066EA5F565BBE154 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF66EB5AC321DE997EDC2F71 /* Aliases.swift */; };
 		167AC4B83C196619FFD1A4B6 /* SimpleTaskKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2C1825B71B82F25822CCE /* SimpleTaskKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B967787C8E0A637A81194 /* CaptureParserTests.swift */; };
 		2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C66D14048751606939ACD /* Simple Task.swift */; };
+		2D424070F6D61483F2DF9019 /* HorizonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43B0046D1E4210B4B56684 /* HorizonModel.swift */; };
 		2F58705CB9E8133EA91F5061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966EBBE3F38E4658FA943F0D /* Assets.xcassets */; };
 		3404A465AF5EC9467B299FA7 /* CaptureParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9496E0F3F1AF224074739FF3 /* CaptureParser.swift */; };
+		3505E798BF5DFDC01D8E9006 /* HorizonModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27914185C867E932C2F3536 /* HorizonModelTests.swift */; };
 		35185D50301F713DBAE08A96 /* RelocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DC829C034F6CE63C813489 /* RelocationTests.swift */; };
 		369690A0FF91ED87659B99ED /* TimeBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56C4E1D1537CDA1C3876E8 /* TimeBands.swift */; };
 		440D2601597123B52745ED83 /* Simple TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073C8F51555614DDC272F4CE /* Simple TaskView.swift */; };
@@ -32,6 +35,7 @@
 		8F5FA0EFAC995142DC39C6E2 /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB00C5C4C8C3BF826410D76 /* MigrationTests.swift */; };
 		90809C22BD8DC08992FE45A3 /* NextWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC87FF9103F9C93A200A8853 /* NextWidget.swift */; };
 		9BE144FFE59F3D19F32C2922 /* Relocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5E0F4FB3826160A58A745 /* Relocation.swift */; };
+		A959F6F3A812298FBEEA526F /* CompleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557F891979532A9F73F64635 /* CompleteTests.swift */; };
 		BEBE55BDA28F8A75120C22C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */; };
 		CCC77DC4476705E537D6B19C /* SimpleTaskKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2C1825B71B82F25822CCE /* SimpleTaskKit.framework */; };
 		D362809EB08AC35A6D02AFE4 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B4F4F8BEE8721675320087 /* SchedulerTests.swift */; };
@@ -127,6 +131,8 @@
 		392884757150F1E091A2F55D /* SimpleTaskWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleTaskWidgets.entitlements; sourceTree = "<group>"; };
 		4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple TaskApp.swift"; sourceTree = "<group>"; };
 		477B967787C8E0A637A81194 /* CaptureParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureParserTests.swift; sourceTree = "<group>"; };
+		4E43B0046D1E4210B4B56684 /* HorizonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonModel.swift; sourceTree = "<group>"; };
+		557F891979532A9F73F64635 /* CompleteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTests.swift; sourceTree = "<group>"; };
 		576A453398FB1CB6EB36CE2B /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		68F503C809BDB367E56DC86F /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		6B2453C66E6DBF12D2AF2FF2 /* SchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV2.swift; sourceTree = "<group>"; };
@@ -151,7 +157,9 @@
 		DBE44B85D5434A71E1196618 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DCB00C5C4C8C3BF826410D76 /* MigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationTests.swift; sourceTree = "<group>"; };
 		DD37EA06B491256FD0D7169D /* Simple Task.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Simple Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E27914185C867E932C2F3536 /* HorizonModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonModelTests.swift; sourceTree = "<group>"; };
 		EC87FF9103F9C93A200A8853 /* NextWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextWidget.swift; sourceTree = "<group>"; };
+		FB4534F63998B4A9F4F38FDB /* Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				477B967787C8E0A637A81194 /* CaptureParserTests.swift */,
+				557F891979532A9F73F64635 /* CompleteTests.swift */,
+				E27914185C867E932C2F3536 /* HorizonModelTests.swift */,
 				DCB00C5C4C8C3BF826410D76 /* MigrationTests.swift */,
 				29DC829C034F6CE63C813489 /* RelocationTests.swift */,
 				C9B4F4F8BEE8721675320087 /* SchedulerTests.swift */,
@@ -269,6 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				9496E0F3F1AF224074739FF3 /* CaptureParser.swift */,
+				FB4534F63998B4A9F4F38FDB /* Completion.swift */,
+				4E43B0046D1E4210B4B56684 /* HorizonModel.swift */,
 				0A56C4E1D1537CDA1C3876E8 /* TimeBands.swift */,
 			);
 			path = Horizon;
@@ -448,7 +460,9 @@
 				14DC1FE9066EA5F565BBE154 /* Aliases.swift in Sources */,
 				4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */,
 				3404A465AF5EC9467B299FA7 /* CaptureParser.swift in Sources */,
+				10D3F19513CC7D03CB1947C0 /* Completion.swift in Sources */,
 				7CF53431B6CE3D756B175789 /* Features.swift in Sources */,
+				2D424070F6D61483F2DF9019 /* HorizonModel.swift in Sources */,
 				5D66A6FB738C4E2EC1BDAA23 /* MigrationPlan.swift in Sources */,
 				9BE144FFE59F3D19F32C2922 /* Relocation.swift in Sources */,
 				7A907EF9921CE130AE051AB9 /* Scheduler.swift in Sources */,
@@ -464,6 +478,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */,
+				A959F6F3A812298FBEEA526F /* CompleteTests.swift in Sources */,
+				3505E798BF5DFDC01D8E9006 /* HorizonModelTests.swift in Sources */,
 				8F5FA0EFAC995142DC39C6E2 /* MigrationTests.swift in Sources */,
 				35185D50301F713DBAE08A96 /* RelocationTests.swift in Sources */,
 				D362809EB08AC35A6D02AFE4 /* SchedulerTests.swift in Sources */,
