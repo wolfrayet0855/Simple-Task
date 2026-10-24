@@ -36,8 +36,8 @@ public struct HorizonModel: Equatable {
     public let ember: TaskSnapshot?
     public let cairnTotal: Int
 
-    /// True when there is no open work at all (done tasks live in the Cairn, not the field).
-    public var isEmpty: Bool { groups.values.allSatisfy { $0.visible.isEmpty } }
+    /// True when there is no open work in the field (done tasks live in the Cairn, shelved ones behind the Shelf).
+    public var isEmpty: Bool { groups.filter { $0.key != .shelf }.values.allSatisfy { $0.visible.isEmpty } }
 
     public static func build(_ tasks: [TaskSnapshot], cairnTotal: Int, now: Date, calendar: Calendar) -> HorizonModel {
         var buckets: [Band: [TaskSnapshot]] = [:]

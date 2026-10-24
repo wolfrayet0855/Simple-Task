@@ -30,30 +30,43 @@ extension Store {
         let fm = FileManager.default
         guard fm.fileExists(atPath: legacyURL.path) else { return .nothingToMove }
 
-        try fm.createDirectory(at: groupURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-        removeStoreFiles(at: groupURL)   // partial copy from an interrupted run
+        let dir = groupURL.deletingLastPathComponent()
+        try fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        let staging = dir.appendingPathComponent("SimpleTask.migrating.store")
+        removeStoreFiles(at: staging)   // leftovers from an interrupted run
 
-        let expected = try legacyRowCount(at: legacyURL)
+        let expected = try legacyCounts(at: legacyURL)
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: NSManagedObjectModel())
         try coordinator.replacePersistentStore(
-            at: groupURL, destinationOptions: nil,
+            at: staging, destinationOptions: nil,
             withPersistentStoreFrom: legacyURL, sourceOptions: nil, type: .sqlite)
 
-        let got = try ModelContext(try makeContainer(storeURL: groupURL)).fetchCount(FetchDescriptor<ToDo>())
+        // Migrate and verify in the staging file; the real location only ever sees a finished store.
+        let got: (tasks: Int, subtasks: Int)
+        do {
+            let context = ModelContext(try makeContainer(storeURL: staging))
+            got = (try context.fetchCount(FetchDescriptor<ToDo>()), try context.fetchCount(FetchDescriptor<SubTask>()))
+        }
         guard got == expected else {
-            removeStoreFiles(at: groupURL)
-            throw RelocationError.rowCountMismatch(expected: expected, got: got)
+            removeStoreFiles(at: staging)
+            throw RelocationError.rowCountMismatch(expected: expected.tasks, got: got.tasks)
+        }
+        removeStoreFiles(at: groupURL)   // partial copy from an older interrupted run
+        for suffix in ["", "-wal", "-shm"] where fm.fileExists(atPath: staging.path + suffix) {
+            try fm.moveItem(atPath: staging.path + suffix, toPath: groupURL.path + suffix)
         }
         removeStoreFiles(at: legacyURL)
         defaults.set("group", forKey: locationKey)
-        return .moved(rows: got)
+        return .moved(rows: got.tasks)
     }
 
-    private static func legacyRowCount(at url: URL) throws -> Int {
+    private static func legacyCounts(at url: URL) throws -> (tasks: Int, subtasks: Int) {
         let container = try ModelContainer(
             for: SchemaV1.ToDo.self, SchemaV1.SubTask.self,
             configurations: ModelConfiguration(url: url, cloudKitDatabase: .none))
-        return try ModelContext(container).fetchCount(FetchDescriptor<SchemaV1.ToDo>())
+        let context = ModelContext(container)
+        return (try context.fetchCount(FetchDescriptor<SchemaV1.ToDo>()),
+                try context.fetchCount(FetchDescriptor<SchemaV1.SubTask>()))
     }
 
     private static func removeStoreFiles(at url: URL) {

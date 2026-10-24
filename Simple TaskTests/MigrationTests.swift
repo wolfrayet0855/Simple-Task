@@ -85,10 +85,12 @@ struct MigrationTests {
         let shared = UUID()
         let old = ToDo(item: "Pay rent", isCompleted: true)
         old.id = shared
+        old.createdAt = Date(timeIntervalSince1970: 50)
         old.completedAt = Date(timeIntervalSince1970: 100)
         old.modifiedAt = Date(timeIntervalSince1970: 100)
-        let newer = ToDo(item: "Pay rent (edited)")
+        let newer = ToDo(item: "Pay rent")
         newer.id = shared
+        newer.createdAt = Date(timeIntervalSince1970: 50)
         newer.modifiedAt = Date(timeIntervalSince1970: 200)
         ctx.insert(old); ctx.insert(newer)
         try ctx.save()
@@ -97,7 +99,7 @@ struct MigrationTests {
 
         let all = try ctx.fetch(FetchDescriptor<ToDo>())
         #expect(all.count == 1)
-        #expect(all[0].item == "Pay rent (edited)")
+        #expect(all[0].item == "Pay rent")
         #expect(all[0].isCompleted)
         #expect(all[0].completedAt == Date(timeIntervalSince1970: 100))
     }

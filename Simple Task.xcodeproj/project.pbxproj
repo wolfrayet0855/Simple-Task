@@ -25,6 +25,7 @@
 		35185D50301F713DBAE08A96 /* RelocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DC829C034F6CE63C813489 /* RelocationTests.swift */; };
 		369690A0FF91ED87659B99ED /* TimeBands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56C4E1D1537CDA1C3876E8 /* TimeBands.swift */; };
 		36D584C630EC4A93D2DE7E59 /* TaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889494B2537F1197A96953DD /* TaskCard.swift */; };
+		41B9EE8DBB4129DCC22F5E43 /* ReviewFixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B52839F5F848721D191E79E /* ReviewFixTests.swift */; };
 		437F0A57458D3C49E3B681B9 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C28CC46058520EA71EF22 /* Tokens.swift */; };
 		440D2601597123B52745ED83 /* Simple TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073C8F51555614DDC272F4CE /* Simple TaskView.swift */; };
 		46C95F91A6BFFD373DB041A0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488D477F5D5F1DAFF9A2FF9 /* Store.swift */; };
@@ -32,6 +33,7 @@
 		4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */; };
 		4EF31BCC62F1A5A457463776 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11052A6A0B63DDB0D6ED8663 /* SchemaV1.swift */; };
 		519BBA27BC45E286B6F1862C /* TimeBandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71CD1A8B1B04A0376431E63 /* TimeBandsTests.swift */; };
+		578C844E64C5AF3985625968 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEAF238E8BF28232838C85 /* NotificationRouter.swift */; };
 		5AD04478B75427A0F0DE2BB2 /* Simple TaskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */; };
 		5D66A6FB738C4E2EC1BDAA23 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F4E8930BFF8C564369E794 /* MigrationPlan.swift */; };
 		5FF744A4CBA9A27D63DE5103 /* NextTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2C3C1F5408E9FEA42851F3 /* NextTimelineTests.swift */; };
@@ -48,6 +50,8 @@
 		9BE144FFE59F3D19F32C2922 /* Relocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5E0F4FB3826160A58A745 /* Relocation.swift */; };
 		A63400F13FD9B739C8994426 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86C55BF23B784ADBD3EE5D /* Capture.swift */; };
 		A959F6F3A812298FBEEA526F /* CompleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557F891979532A9F73F64635 /* CompleteTests.swift */; };
+		B724B41E9828CFF31E6B6141 /* NotificationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */; };
+		BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF71B8B38213919052C6FA00 /* NotificationDelegate.swift */; };
 		BEBE55BDA28F8A75120C22C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */; };
 		CC31C1C100FC628F45916E00 /* TaskActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCBB9FBC15210A38B2FE63 /* TaskActions.swift */; };
 		D362809EB08AC35A6D02AFE4 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B4F4F8BEE8721675320087 /* SchedulerTests.swift */; };
@@ -121,6 +125,7 @@
 		11052A6A0B63DDB0D6ED8663 /* SchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV1.swift; sourceTree = "<group>"; };
 		148D92EDA7F8D42B1D58CC69 /* IntentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTests.swift; sourceTree = "<group>"; };
 		1A2C3C1F5408E9FEA42851F3 /* NextTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTimelineTests.swift; sourceTree = "<group>"; };
+		1B52839F5F848721D191E79E /* ReviewFixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewFixTests.swift; sourceTree = "<group>"; };
 		1CE957DDC6EADD2884AB0701 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
 		29DC829C034F6CE63C813489 /* RelocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelocationTests.swift; sourceTree = "<group>"; };
 		2C6C28CC46058520EA71EF22 /* Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
@@ -131,6 +136,7 @@
 		477B967787C8E0A637A81194 /* CaptureParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureParserTests.swift; sourceTree = "<group>"; };
 		4E3A570F50D0096A5520B2EF /* HoldToComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldToComplete.swift; sourceTree = "<group>"; };
 		4E43B0046D1E4210B4B56684 /* HorizonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonModel.swift; sourceTree = "<group>"; };
+		54CEAF238E8BF28232838C85 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 		557F891979532A9F73F64635 /* CompleteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTests.swift; sourceTree = "<group>"; };
 		576A453398FB1CB6EB36CE2B /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		6116524483E1FD08C4A47D28 /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 		7192A9C3B8388A098CA52EA7 /* SimpleTaskWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SimpleTaskWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F4429A2FA6F40E3B50ACCA /* CompleteTaskIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTaskIntent.swift; sourceTree = "<group>"; };
 		8488D477F5D5F1DAFF9A2FF9 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouterTests.swift; sourceTree = "<group>"; };
 		889494B2537F1197A96953DD /* TaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCard.swift; sourceTree = "<group>"; };
 		8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8F9434A02E5E6B50820E510F /* HorizonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonView.swift; sourceTree = "<group>"; };
@@ -156,6 +163,7 @@
 		AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		BED5E0F4FB3826160A58A745 /* Relocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relocation.swift; sourceTree = "<group>"; };
 		BF66EB5AC321DE997EDC2F71 /* Aliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
+		BF71B8B38213919052C6FA00 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		C2F4E8930BFF8C564369E794 /* MigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationPlan.swift; sourceTree = "<group>"; };
 		C4232986CD2A23D75C3DC509 /* Simple TaskTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Simple TaskTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B4F4F8BEE8721675320087 /* SchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTests.swift; sourceTree = "<group>"; };
@@ -203,7 +211,9 @@
 				148D92EDA7F8D42B1D58CC69 /* IntentTests.swift */,
 				DCB00C5C4C8C3BF826410D76 /* MigrationTests.swift */,
 				1A2C3C1F5408E9FEA42851F3 /* NextTimelineTests.swift */,
+				882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */,
 				29DC829C034F6CE63C813489 /* RelocationTests.swift */,
+				1B52839F5F848721D191E79E /* ReviewFixTests.swift */,
 				C9B4F4F8BEE8721675320087 /* SchedulerTests.swift */,
 				1CE957DDC6EADD2884AB0701 /* SmokeTests.swift */,
 				D71CD1A8B1B04A0376431E63 /* TimeBandsTests.swift */,
@@ -237,6 +247,7 @@
 		5DDD7A1B55BD9D42EC160D68 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				54CEAF238E8BF28232838C85 /* NotificationRouter.swift */,
 				68F503C809BDB367E56DC86F /* Scheduler.swift */,
 			);
 			path = Notifications;
@@ -318,6 +329,7 @@
 				966EBBE3F38E4658FA943F0D /* Assets.xcassets */,
 				CE2C70BD7A65F153D7D4B727 /* Info.plist */,
 				90BE17ED5EDE470E91104533 /* Launch Screen.storyboard */,
+				BF71B8B38213919052C6FA00 /* NotificationDelegate.swift */,
 				4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */,
 				0C389A5FBAEEC07EDDFB4DF1 /* SimpleTask.entitlements */,
 				59C4F530E0AFDDE7B5DA8D96 /* Horizon */,
@@ -449,6 +461,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					0DA7AC04B76626FABFF93903 = {
+						DevelopmentTeam = P9Z5QB8965;
+					};
+					4BB4962D4278E53832E61919 = {
+						DevelopmentTeam = P9Z5QB8965;
+					};
+					B10C1E940BFC38EBA86D01BF = {
+						DevelopmentTeam = P9Z5QB8965;
+					};
+					F4D2CF966699A30B208E855B = {
+						DevelopmentTeam = P9Z5QB8965;
+					};
 				};
 			};
 			buildConfigurationList = 242325B90026DFE6A1986FAF /* Build configuration list for PBXProject "Simple Task" */;
@@ -501,6 +525,7 @@
 				2D424070F6D61483F2DF9019 /* HorizonModel.swift in Sources */,
 				5D66A6FB738C4E2EC1BDAA23 /* MigrationPlan.swift in Sources */,
 				9B601B65A37BAF1B765E69B3 /* NextEntry.swift in Sources */,
+				578C844E64C5AF3985625968 /* NotificationRouter.swift in Sources */,
 				9BE144FFE59F3D19F32C2922 /* Relocation.swift in Sources */,
 				7A907EF9921CE130AE051AB9 /* Scheduler.swift in Sources */,
 				4EF31BCC62F1A5A457463776 /* SchemaV1.swift in Sources */,
@@ -524,7 +549,9 @@
 				1791BF965F0B6A8E2D10A027 /* IntentTests.swift in Sources */,
 				8F5FA0EFAC995142DC39C6E2 /* MigrationTests.swift in Sources */,
 				5FF744A4CBA9A27D63DE5103 /* NextTimelineTests.swift in Sources */,
+				B724B41E9828CFF31E6B6141 /* NotificationRouterTests.swift in Sources */,
 				35185D50301F713DBAE08A96 /* RelocationTests.swift in Sources */,
+				41B9EE8DBB4129DCC22F5E43 /* ReviewFixTests.swift in Sources */,
 				D362809EB08AC35A6D02AFE4 /* SchedulerTests.swift in Sources */,
 				6C049D2E92722DCE8BA927B5 /* SmokeTests.swift in Sources */,
 				519BBA27BC45E286B6F1862C /* TimeBandsTests.swift in Sources */,
@@ -553,6 +580,7 @@
 				8D2AEE298F7F0018E99DA45E /* Haptics.swift in Sources */,
 				2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */,
 				7E2970F6222E11A64341BD1A /* HorizonView.swift in Sources */,
+				BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */,
 				F837C9C3B04102363E4895AC /* SettingsView.swift in Sources */,
 				2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */,
 				5AD04478B75427A0F0DE2BB2 /* Simple TaskApp.swift in Sources */,
@@ -628,6 +656,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P9Z5QB8965;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -710,6 +739,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = P9Z5QB8965;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

@@ -75,4 +75,15 @@ struct RelocationTests {
 
         #expect(result == .moved(rows: 3))
     }
+
+    @Test func relocationLeavesNoStagingFilesBehind() throws {
+        let dir = try tempDir()
+        let legacy = dir.appendingPathComponent("default.store")
+        let groupDir = dir.appendingPathComponent("group")
+        try seedLegacy(at: legacy, titles: ["a"])
+        _ = try Store.relocateIfNeeded(legacyURL: legacy, groupURL: groupDir.appendingPathComponent("SimpleTask.store"), defaults: defaults())
+        let names = try FileManager.default.contentsOfDirectory(atPath: groupDir.path)
+        #expect(!names.contains { $0.contains("migrating") })
+        #expect(names.contains("SimpleTask.store"))
+    }
 }

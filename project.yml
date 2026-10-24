@@ -6,6 +6,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: P9Z5QB8965
     MARKETING_VERSION: "1.2"
     CURRENT_PROJECT_VERSION: "1"
 targets:

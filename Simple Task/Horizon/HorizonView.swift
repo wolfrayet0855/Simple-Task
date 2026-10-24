@@ -12,6 +12,7 @@ struct HorizonView: View {
     @State private var toastTimer: Task<Void, Never>?
     @State private var editing: ToDo?
     @State private var showDebug = false
+    @State private var showShelf = false
 
     private let scheduler = Scheduler()
     private let calendar = Calendar.current
@@ -26,6 +27,10 @@ struct HorizonView: View {
         .sheet(item: $editing) { todo in
             NavigationStack { DetailView(toDo: todo) }
         }
+        .sheet(isPresented: $showShelf) {
+            ShelfSheet(tasks: shelfTasks, onBringBack: { reschedule($0.id, Dictionary(todos.map { ($0.id, $0) }, uniquingKeysWith: { f, _ in f }), .today) },
+                       onOpen: { showShelf = false; open($0.id) })
+        }
         #if DEBUG
         .sheet(isPresented: $showDebug) { DebugMenu() }
         #endif
@@ -36,7 +41,7 @@ struct HorizonView: View {
     @ViewBuilder
     private func field(now: Date) -> some View {
         let model = HorizonModel.build(todos.map(TaskSnapshot.init), cairnTotal: cairnTotal, now: now, calendar: calendar)
-        let byID = Dictionary(uniqueKeysWithValues: todos.map { ($0.id, $0) })
+        let byID = Dictionary(todos.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         let dusk = Tokens.duskAmount(at: now)
         let calm = model.isEmpty && model.cairnTotal > 0
 
@@ -125,11 +130,16 @@ struct HorizonView: View {
             .holdToComplete(onComplete: { complete(task.id, byID) }, onOpen: { open(task.id) })
             .transition(reduceMotion ? .opacity : .asymmetric(
                 insertion: .opacity, removal: .move(edge: .bottom).combined(with: .opacity)))
-            .contextMenu {
-                Button("Open", systemImage: "square.and.pencil") { open(task.id) }
-                Button("Tomorrow", systemImage: "sunrise") { reschedule(task.id, byID, .tomorrow) }
-                Button("Next week", systemImage: "calendar") { reschedule(task.id, byID, .nextWeek) }
-                Button("Shelf", systemImage: "tray") { reschedule(task.id, byID, .shelf) }
+            .overlay(alignment: .topTrailing) {
+                Menu {
+                    Button("Open", systemImage: "square.and.pencil") { open(task.id) }
+                    Button("Tomorrow", systemImage: "sunrise") { reschedule(task.id, byID, .tomorrow) }
+                    Button("Next week", systemImage: "calendar") { reschedule(task.id, byID, .nextWeek) }
+                    Button("Shelf", systemImage: "tray") { reschedule(task.id, byID, .shelf) }
+                } label: {
+                    Image(systemName: "ellipsis").padding(12).foregroundStyle(Tokens.ink.opacity(0.35))
+                }
+                .accessibilityLabel("More actions")
             }
             .accessibilityHint("Hold to finish")
             .accessibilityAction(named: "Complete") { complete(task.id, byID) }
@@ -153,11 +163,13 @@ struct HorizonView: View {
 
     @ViewBuilder
     private func slippedRow(_ model: HorizonModel, _ byID: [UUID: ToDo]) -> some View {
-        if let group = model.groups[.slipped], !group.visible.isEmpty {
+        let slipped = model.groups[.slipped]?.visible ?? []
+        let shelfCount = model.groups[.shelf]?.visible.count ?? 0
+        if !slipped.isEmpty || shelfCount > 0 {
             ScrollView(.horizontal) {
                 HStack(spacing: 8) {
                     Image(systemName: "moon.haze").foregroundStyle(Tokens.slipped)
-                    ForEach(group.visible) { task in
+                    ForEach(slipped) { task in
                         Button { open(task.id) } label: {
                             Text("\(task.title) · slipped \(slippedDays(task))d")
                                 .font(.footnote)
@@ -170,12 +182,26 @@ struct HorizonView: View {
                             Button("Shelf", systemImage: "tray") { reschedule(task.id, byID, .shelf) }
                         }
                     }
+                    if shelfCount > 0 {
+                        Button { showShelf = true } label: {
+                            Label("Shelf · \(shelfCount)", systemImage: "tray")
+                                .font(.footnote)
+                                .padding(.horizontal, 10).padding(.vertical, 6)
+                                .foregroundStyle(Tokens.slipped)
+                                .background(Capsule().strokeBorder(Tokens.slipped.opacity(0.4)))
+                        }
+                    }
                 }
                 .padding(.horizontal, 16)
             }
             .scrollIndicators(.hidden)
             .frame(height: 36)
         }
+    }
+
+    private var shelfTasks: [ToDo] {
+        let now = Date.now
+        return todos.filter { TimeBands.band(for: TaskSnapshot($0), now: now, calendar: calendar) == .shelf }
     }
 
     private func slippedDays(_ task: TaskSnapshot) -> Int {
@@ -197,6 +223,9 @@ struct HorizonView: View {
 
     // MARK: - Actions
 
+    /// VoiceOver users need longer to find Undo.
+    private var undoWindow: TimeInterval { UIAccessibility.isVoiceOverRunning ? 15 : Completion.undoWindow }
+
     private var cairnTotal: Int { todos.lazy.filter(\.isCompleted).count }
 
     private func completedToday(_ now: Date) -> Int {
@@ -208,22 +237,26 @@ struct HorizonView: View {
     private func capture(_ parsed: ParsedCapture) {
         guard let task = try? Capture.insert(parsed, in: context) else { return }
         Task { await scheduler.schedule(task) }
+        Widgets.reload()
     }
 
     private func complete(_ id: UUID, _ byID: [UUID: ToDo]) {
         guard let task = byID[id], let total = try? Completion.complete(task, in: context) else { return }
         Task { await scheduler.schedule(task) }
+        Widgets.reload()
+        AccessibilityNotification.Announcement("Stone #\(total). Undo is available.").post()
         withAnimation(reduceMotion ? .easeInOut(duration: 0.2) : Motion.settle) { toast = Toast(taskID: id, total: total) }
         toastTimer?.cancel()
         toastTimer = Task {
-            try? await Task.sleep(for: .seconds(Completion.undoWindow))
+            try? await Task.sleep(for: .seconds(undoWindow))
             if !Task.isCancelled { withAnimation { toast = nil } }
         }
     }
 
     private func undo(_ toast: Toast, _ byID: [UUID: ToDo]) {
-        guard let task = byID[toast.taskID], (try? Completion.undo(task, in: context)) == true else { return }
+        guard let task = byID[toast.taskID], (try? Completion.undo(task, in: context, window: undoWindow)) == true else { return }
         Task { await scheduler.schedule(task) }
+        Widgets.reload()
         toastTimer?.cancel()
         withAnimation { self.toast = nil }
     }
@@ -248,6 +281,7 @@ struct HorizonView: View {
         task.modifiedAt = .now
         try? context.save()
         Task { await scheduler.schedule(task) }
+        Widgets.reload()
     }
 }
 
@@ -265,3 +299,31 @@ private struct DebugMenu: View {
     }
 }
 #endif
+
+private struct ShelfSheet: View {
+    let tasks: [ToDo]
+    let onBringBack: (ToDo) -> Void
+    let onOpen: (ToDo) -> Void
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List {
+                if tasks.isEmpty {
+                    Text("Nothing on the shelf.").foregroundStyle(.secondary)
+                }
+                ForEach(tasks) { task in
+                    HStack {
+                        Button(task.item) { onOpen(task) }.foregroundStyle(Tokens.ink)
+                        Spacer()
+                        Button("Bring back") { onBringBack(task) }
+                            .buttonStyle(.bordered).tint(Tokens.ember)
+                    }
+                }
+            }
+            .navigationTitle("Shelf")
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }
+        .presentationDetents([.medium, .large])
+    }
+}

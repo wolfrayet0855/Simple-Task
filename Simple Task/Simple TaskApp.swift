@@ -5,21 +5,23 @@ import SimpleTaskKit
 
 @main
 struct ToDoListApp: App {
-    // Use a closure to initialize the container so we can catch errors.
-    let container: ModelContainer = {
+    let container: ModelContainer
+    private let notificationDelegate: NotificationDelegate
+
+    init() {
+        let container: ModelContainer
         do {
-            let container = try Store.bootstrap()
+            container = try Store.bootstrap()
             #if DEBUG
             DemoSeed.run(container)
             #endif
-            return container
         } catch {
             fatalError("Error initializing ModelContainer: \(error)")
         }
-    }()
-
-    init() {
-        requestNotificationPermission()
+        self.container = container
+        notificationDelegate = NotificationDelegate(container: container)
+        UNUserNotificationCenter.current().delegate = notificationDelegate
+        Self.requestNotificationPermission()
         Scheduler.registerCategories()
     }
 
@@ -27,11 +29,11 @@ struct ToDoListApp: App {
         WindowGroup {
             HorizonView()
                 .modelContainer(container) // Inject the persistent container.
-                .environmentObject(CategoryManager()) // Shared category manager.
+                .environmentObject(CategoryManager()) // Legacy screens only.
         }
     }
 
-    func requestNotificationPermission() {
+    static func requestNotificationPermission() {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-skipPermission") { return }
         #endif
@@ -42,5 +44,3 @@ struct ToDoListApp: App {
         }
     }
 }
-
-

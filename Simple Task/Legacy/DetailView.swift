@@ -10,34 +10,9 @@ struct DetailView: View {
 
     @State var toDo: ToDo
     @State private var newSubTaskName = ""
-    @State private var showAlert = false
-
-    // Ensure the due date is today or later.
-    private var isDueDateValid: Bool {
-        return toDo.dueDate >= Calendar.current.startOfDay(for: Date())
-    }
 
     func scheduleNotification(for todo: ToDo) {
-        guard todo.reminderIsOn && !todo.isCompleted else { return }
-        let content = UNMutableNotificationContent()
-        content.title = todo.item
-        content.body = "Reminder: \(todo.item) is due!"
-        content.sound = .default
-
-        let triggerDate = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
-            from: todo.reminderDate
-        )
-        let request = UNNotificationRequest(
-            identifier: todo.notificationID,
-            content: content,
-            trigger: UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-        )
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error)")
-            }
-        }
+        Task { await Scheduler().schedule(todo) }
     }
 
     var body: some View {
@@ -48,16 +23,19 @@ struct DetailView: View {
                         .font(.title2)
                 }
                 
-                Section(header: Text("Due Date *").font(.headline)) {
-                    DatePicker(
-                        "Select Due Date",
-                        selection: $toDo.dueDate,
-                        displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
-                    )
-                    .accentColor(isDueDateValid ? .primary : .red)
-                    
-                    Toggle("All Day", isOn: $toDo.isAllDay)
-                        .toggleStyle(SwitchToggleStyle(tint: .blue))
+                Section(header: Text("Due Date").font(.headline)) {
+                    Toggle("Has a date", isOn: $toDo.isDated)
+                    if toDo.isDated {
+                        DatePicker(
+                            "Select Due Date",
+                            selection: $toDo.dueDate,
+                            displayedComponents: toDo.isAllDay ? .date : [.date, .hourAndMinute]
+                        )
+                        .accentColor(.primary)
+
+                        Toggle("All Day", isOn: $toDo.isAllDay)
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                    }
                 }
                 
                 Section(header: Text("Reminder").font(.headline)) {
@@ -115,7 +93,17 @@ struct DetailView: View {
                 
                 // New Completion section to manually mark the task complete.
                 Section(header: Text("Completion").font(.headline)) {
-                    Toggle("Mark as Complete", isOn: $toDo.isCompleted)
+                    Toggle("Mark as Complete", isOn: Binding(
+                        get: { toDo.isCompleted },
+                        set: { done in
+                            if done {
+                                _ = try? Completion.complete(toDo, in: modelContext)
+                            } else {
+                                toDo.isCompleted = false
+                                toDo.completedAt = nil
+                                toDo.stateRaw = "active"
+                            }
+                        }))
                 }
             }
             .navigationTitle("Edit Task")
@@ -128,28 +116,22 @@ struct DetailView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        guard isDueDateValid else {
-                            showAlert = true
-                            return
-                        }
                         if toDo.modelContext == nil {
                             modelContext.insert(toDo)
                         }
+                        toDo.modifiedAt = .now
+                        if !toDo.isCompleted, toDo.isDated, toDo.stateRaw == "shelved" { toDo.stateRaw = "active" }
                         do {
+                            try Capture.setTag(toDo.category, on: toDo, in: modelContext)
                             try modelContext.save()
                             scheduleNotification(for: toDo)
+                            Widgets.reload()
                         } catch {
                             print("Error saving: \(error)")
                         }
                         dismiss()
                     }
-                    .disabled(!isDueDateValid)
                 }
-            }
-            .alert("Invalid Due Date", isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text("Please select a due date that is today or later.")
             }
         }
     }

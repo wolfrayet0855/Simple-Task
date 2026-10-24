@@ -28,7 +28,7 @@ struct CaptureParserTests {
         #expect(try #require(parse("stretch 8am")).due == Fixed.days(1, hour: 8))
     }
     @Test func sameWeekdayMeansNextWeek() throws {
-        #expect(try #require(parse("review wed")).due == Fixed.days(7, hour: 9))
+        #expect(try #require(parse("review on wed")).due == Fixed.days(7, hour: 9))
     }
     @Test func twentyFourHourClock() throws {
         #expect(try #require(parse("deploy tomorrow 18:30")).due == Fixed.calendar.date(

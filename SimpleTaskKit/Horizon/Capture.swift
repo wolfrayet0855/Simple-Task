@@ -36,6 +36,16 @@ public enum Capture {
         return task
     }
 
+    /// Points the task at the Tag with this name (case-insensitive), creating it when missing.
+    public static func setTag(_ name: String, on task: ToDo, in context: ModelContext) throws {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        let tag = try find(SchemaV2.Tag.self, in: context) { $0.name.caseInsensitiveCompare(trimmed) == .orderedSame }
+            ?? make(SchemaV2.Tag(name: trimmed, colorToken: "tag.\(Int.random(in: 1...8))"), in: context)
+        task.tag = tag
+        task.category = tag.name
+    }
+
     private static func find<T: PersistentModel>(_ type: T.Type, in context: ModelContext,
                                                  where match: (T) -> Bool) throws -> T? {
         try context.fetch(FetchDescriptor<T>()).first(where: match)

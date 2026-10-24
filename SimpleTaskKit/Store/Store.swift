@@ -25,12 +25,15 @@ public enum Store {
         return container
     }
 
-    /// Run at launch: one row per `id`, latest `modifiedAt` wins, completion is never undone by an older write.
+    /// Run at launch. Only exact duplicates (same id, title and creation time) are merged, keeping the latest
+    /// write and never reopening a completed task. Rows that merely share an id (a half-finished migration
+    /// leaves every row with one id) get fresh ids: losing nothing beats tidiness.
     public static func reconcile(context: ModelContext) throws {
         let all = try context.fetch(FetchDescriptor<ToDo>(sortBy: [SortDescriptor(\.modifiedAt, order: .reverse)]))
-        var kept: [UUID: ToDo] = [:]
+        var seen: [UUID: [ToDo]] = [:]
         for task in all {
-            if let winner = kept[task.id] {
+            guard let group = seen[task.id] else { seen[task.id] = [task]; continue }
+            if let winner = group.first(where: { $0.item == task.item && $0.createdAt == task.createdAt }) {
                 if task.isCompleted && !winner.isCompleted {
                     winner.isCompleted = true
                     winner.completedAt = task.completedAt
@@ -38,9 +41,16 @@ public enum Store {
                 }
                 context.delete(task)
             } else {
-                kept[task.id] = task
+                task.id = UUID()
+                seen[task.id] = [task]
             }
         }
         try context.save()
+    }
+
+    /// False while a legacy store still waits to be relocated; widgets and intents must not open the store then.
+    public static func isReady(defaults: UserDefaults = Store.groupDefaults,
+                               legacyURL: URL = Store.legacyStoreURL) -> Bool {
+        defaults.string(forKey: locationKey) == "group" || !FileManager.default.fileExists(atPath: legacyURL.path)
     }
 }

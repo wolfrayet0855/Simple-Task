@@ -19,8 +19,9 @@ public enum Completion {
 
     /// Reopens a task completed within the last 5 seconds. Returns false when the window has passed.
     @discardableResult
-    public static func undo(_ task: ToDo, in context: ModelContext, now: Date = .now) throws -> Bool {
-        guard task.isCompleted, let at = task.completedAt, now.timeIntervalSince(at) <= undoWindow else { return false }
+    public static func undo(_ task: ToDo, in context: ModelContext, now: Date = .now,
+                            window: TimeInterval = Completion.undoWindow) throws -> Bool {
+        guard task.isCompleted, let at = task.completedAt, now.timeIntervalSince(at) <= window else { return false }
         task.isCompleted = false
         task.completedAt = nil
         task.stateRaw = "active"

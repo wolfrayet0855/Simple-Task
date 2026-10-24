@@ -65,4 +65,14 @@ struct CaptureInsertTests {
         #expect(pos(500) == 1)                             // horizon clamps
         #expect(pos(0, due: false) == 0)                   // undated sits at the floor
     }
+
+    @Test func setTagReusesExistingTagAndKeepsLegacyCategoryInSync() throws {
+        let c = try ctx()
+        let a = try insert(ParsedCapture(title: "a", tag: "Errands"), c)
+        let b = ToDo(item: "b"); c.insert(b)
+        try Capture.setTag("errands", on: b, in: c)
+        #expect(b.tag === a.tag)
+        #expect(b.category == "Errands")
+        #expect(try c.fetchCount(FetchDescriptor<SchemaV2.Tag>()) == 1)
+    }
 }

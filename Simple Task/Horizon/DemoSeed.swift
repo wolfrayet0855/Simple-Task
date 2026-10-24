@@ -18,6 +18,8 @@ enum DemoSeed {
         for p in phrases { if let parsed = CaptureParser.parse(p, now: .now, calendar: .current) { _ = try? Capture.insert(parsed, in: ctx) } }
         let slipped = ToDo(item: "Reply to landlord", dueDate: Calendar.current.date(byAdding: .day, value: -2, to: .now)!)
         ctx.insert(slipped)
+        let shelved = ToDo(item: "Learn pottery"); shelved.isDated = false; shelved.stateRaw = "shelved"
+        ctx.insert(shelved)
         for i in 0..<9 {
             let done = ToDo(item: "Done \(i)", isCompleted: true)
             done.completedAt = i < 3 ? .now : Calendar.current.date(byAdding: .day, value: -i, to: .now)
