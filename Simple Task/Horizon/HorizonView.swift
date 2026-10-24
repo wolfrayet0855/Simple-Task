@@ -25,7 +25,7 @@ struct HorizonView: View {
         }
         .task { await scheduler.reconcile(tasks: todos) }
         .sheet(item: $editing) { todo in
-            NavigationStack { DetailView(toDo: todo) }
+            TaskSheet(task: todo, onFinish: finishFromSheet)
         }
         .sheet(isPresented: $showShelf) {
             ShelfSheet(tasks: shelfTasks, onBringBack: { reschedule($0.id, Dictionary(todos.map { ($0.id, $0) }, uniquingKeysWith: { f, _ in f }), .today) },
@@ -233,6 +233,14 @@ struct HorizonView: View {
     }
 
     private func open(_ id: UUID) { editing = todos.first { $0.id == id } }
+
+    /// The sheet has closed; complete after it settles so the sink, stone and toast play on the visible field.
+    private func finishFromSheet(_ id: UUID) {
+        Task {
+            try? await Task.sleep(for: .seconds(0.35))
+            complete(id, Dictionary(todos.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first }))
+        }
+    }
 
     private func capture(_ parsed: ParsedCapture) {
         guard let task = try? Capture.insert(parsed, in: context) else { return }

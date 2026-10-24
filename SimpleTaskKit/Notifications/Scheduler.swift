@@ -92,6 +92,9 @@ public struct Scheduler {
         try? await center.schedule(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
     }
 
+    /// Drops the pending request for a task that no longer exists.
+    public func cancel(notificationID: String) { center.removePending([notificationID]) }
+
     /// Makes pending requests match the data: removes legacy title-keyed and orphaned requests, then schedules.
     public func reconcile(tasks: [ToDo], now: Date = .now) async {
         let wanted = tasks.filter { Self.wantsReminder($0, now: now) }
