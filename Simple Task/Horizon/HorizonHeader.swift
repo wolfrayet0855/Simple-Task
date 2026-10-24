@@ -55,6 +55,10 @@ struct SettingsSheet: View {
                 }
                 #if DEBUG
                 Section("Developer") {
+                    Button("Reset onboarding") {
+                        UserDefaults.standard.set(false, forKey: "onboarding.v1.done")
+                        UserDefaults.standard.set(false, forKey: "nudges.asked")
+                    }
                     NavigationLink("Legacy list") { ToDoListView() }
                     NavigationLink("Legacy graph") { GraphView() }
                     NavigationLink("Legacy settings") { SettingsView() }

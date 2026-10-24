@@ -15,6 +15,7 @@
 		14DC1FE9066EA5F565BBE154 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF66EB5AC321DE997EDC2F71 /* Aliases.swift */; };
 		1791BF965F0B6A8E2D10A027 /* IntentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148D92EDA7F8D42B1D58CC69 /* IntentTests.swift */; };
 		1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B967787C8E0A637A81194 /* CaptureParserTests.swift */; };
+		20E594CE89D8AC97FC009475 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A0982A5D32672930629467 /* OnboardingView.swift */; };
 		2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A570F50D0096A5520B2EF /* HoldToComplete.swift */; };
 		2B6B4B9B49EC16B1CA1A1BA0 /* HorizonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */; };
 		2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C66D14048751606939ACD /* Simple Task.swift */; };
@@ -158,6 +159,7 @@
 		59AE59CDB59F16D63DBEC2FE /* BandLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLabel.swift; sourceTree = "<group>"; };
 		5B30CBF675700A825A1C23A9 /* BootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapTests.swift; sourceTree = "<group>"; };
 		6116524483E1FD08C4A47D28 /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
+		63A0982A5D32672930629467 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		683CBF2321D4541C6F6E8EE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		68F503C809BDB367E56DC86F /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		6B2453C66E6DBF12D2AF2FF2 /* SchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV2.swift; sourceTree = "<group>"; };
@@ -229,6 +231,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01137E800694F017078BCDEC /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				63A0982A5D32672930629467 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		04B0B3A4C8A4557900A08ED2 /* Simple TaskTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +386,7 @@
 				0C389A5FBAEEC07EDDFB4DF1 /* SimpleTask.entitlements */,
 				59C4F530E0AFDDE7B5DA8D96 /* Horizon */,
 				E0A620E9085A33B2767F2132 /* Legacy */,
+				01137E800694F017078BCDEC /* Onboarding */,
 				211AC0D19013B7E73BB501DA /* Preview Content */,
 			);
 			path = "Simple Task";
@@ -634,6 +645,7 @@
 				2B6B4B9B49EC16B1CA1A1BA0 /* HorizonHeader.swift in Sources */,
 				7E2970F6222E11A64341BD1A /* HorizonView.swift in Sources */,
 				BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */,
+				20E594CE89D8AC97FC009475 /* OnboardingView.swift in Sources */,
 				B761C8B478A1E9DBCC803ED7 /* RecoveryView.swift in Sources */,
 				0B2A31575AF0A5910418CC45 /* RootView.swift in Sources */,
 				F837C9C3B04102363E4895AC /* SettingsView.swift in Sources */,
