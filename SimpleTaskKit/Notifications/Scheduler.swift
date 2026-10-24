@@ -13,6 +13,21 @@ extension UNUserNotificationCenter: NotificationCenterProtocol {
     public func pendingIDs() async -> [String] { await pendingNotificationRequests().map(\.identifier) }
 }
 
+public protocol NotificationPermission {
+    func isUndetermined() async -> Bool
+    func request() async
+}
+
+public struct LiveNotificationPermission: NotificationPermission {
+    public init() {}
+    public func isUndetermined() async -> Bool {
+        await UNUserNotificationCenter.current().notificationSettings().authorizationStatus == .notDetermined
+    }
+    public func request() async {
+        _ = try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+    }
+}
+
 /// Each device schedules its own local notifications from synced data; there is no cross-device relay.
 public struct Scheduler {
     public static let categoryID = "TASK"
@@ -23,9 +38,25 @@ public struct Scheduler {
     public static func notificationID(for id: UUID) -> String { "task.\(id.uuidString).reminder" }
 
     private let center: NotificationCenterProtocol
+    private let permission: NotificationPermission?
 
-    public init(center: NotificationCenterProtocol = UNUserNotificationCenter.current()) {
+    /// The live scheduler: asks for notification permission the first time a reminder is wanted.
+    public init() {
+        center = UNUserNotificationCenter.current()
+        permission = Self.launchSkipsPermission ? nil : LiveNotificationPermission()
+    }
+
+    public init(center: NotificationCenterProtocol, permission: NotificationPermission? = nil) {
         self.center = center
+        self.permission = permission
+    }
+
+    private static var launchSkipsPermission: Bool {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("-skipPermission")
+        #else
+        false
+        #endif
     }
 
     public static func registerCategories(on center: UNUserNotificationCenter = .current()) {
@@ -49,6 +80,7 @@ public struct Scheduler {
             center.removePending([id])
             return
         }
+        if let permission, await permission.isUndetermined() { await permission.request() }
         let content = UNMutableNotificationContent()
         content.title = "Ready when you are"
         content.body = task.item

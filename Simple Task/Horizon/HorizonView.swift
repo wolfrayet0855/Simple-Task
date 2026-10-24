@@ -63,6 +63,12 @@ struct HorizonView: View {
                     inHand(model, byID, now)
                     slippedRow(model, byID).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                     CairnStrip(total: model.cairnTotal, today: completedToday(now))
+                        .contentShape(Rectangle())
+                        .onLongPressGesture(minimumDuration: 1.5) {
+                            #if DEBUG
+                            showDebug = true
+                            #endif
+                        }
                         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                     CaptureBar { parsed in capture(parsed) }
                         .dynamicTypeSize(...DynamicTypeSize.accessibility1)
@@ -70,12 +76,6 @@ struct HorizonView: View {
                 .padding(.top, 4)
 
                 if let toast { toastView(toast, byID).padding(.bottom, 130).transition(.move(edge: .bottom).combined(with: .opacity)) }
-            }
-            .overlay(alignment: .topTrailing) {
-                #if DEBUG
-                Button { showDebug = true } label: { Image(systemName: "ladybug").padding(10) }
-                    .foregroundStyle(Tokens.ink.opacity(0.35))
-                #endif
             }
         }
     }

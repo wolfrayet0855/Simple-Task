@@ -21,7 +21,6 @@ struct ToDoListApp: App {
         self.container = container
         notificationDelegate = NotificationDelegate(container: container)
         UNUserNotificationCenter.current().delegate = notificationDelegate
-        Self.requestNotificationPermission()
         Scheduler.registerCategories()
     }
 
@@ -30,17 +29,6 @@ struct ToDoListApp: App {
             HorizonView()
                 .modelContainer(container) // Inject the persistent container.
                 .environmentObject(CategoryManager()) // Legacy screens only.
-        }
-    }
-
-    static func requestNotificationPermission() {
-        #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-skipPermission") { return }
-        #endif
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if let error = error {
-                print("Error requesting notification permission: \(error)")
-            }
         }
     }
 }
