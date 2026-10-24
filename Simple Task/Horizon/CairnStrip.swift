@@ -18,13 +18,17 @@ struct CairnStrip: View {
             }
             .frame(height: 16, alignment: .bottom)
             Spacer(minLength: 0)
-            Text(total.formatted()).font(.footnote.weight(.semibold).monospacedDigit())
-            Text("today \(today)").font(.footnote.monospacedDigit()).foregroundStyle(Tokens.ink.opacity(0.55))
+            if total == 0 {
+                Text("Finish a task to lay the first stone").font(.footnote).foregroundStyle(Tokens.ink.opacity(0.55))
+            } else {
+                Text("\(total.formatted()) \(total == 1 ? "stone" : "stones")").font(.footnote.weight(.semibold).monospacedDigit())
+                Text("\(today) today").font(.footnote.monospacedDigit()).foregroundStyle(Tokens.ink.opacity(0.55))
+            }
         }
         .foregroundStyle(Tokens.ink)
         .padding(.horizontal, 16)
         .frame(height: 40)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Cairn. \(total) stones, \(today) today.")
+        .accessibilityLabel(total == 0 ? "Cairn. No stones yet." : "Cairn. \(total) stones, \(today) today.")
     }
 }
