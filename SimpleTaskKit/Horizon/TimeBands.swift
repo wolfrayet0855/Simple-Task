@@ -76,6 +76,25 @@ public enum TimeBands {
         }
     }
 
+    /// 0 at the band's near (bottom) edge, 1 at its far edge; linear in time within the band.
+    public static func position(for task: TaskSnapshot, now: Date, calendar: Calendar) -> Double {
+        guard let due = task.due else { return 0 }
+        let days = Double(dayOffset(from: now, to: due, calendar: calendar))
+        let start = calendar.startOfDay(for: due)
+        let dayFraction = due.timeIntervalSince(start) / 86_400
+        let t = days + dayFraction
+        let (from, length): (Double, Double)
+        switch band(for: task, now: now, calendar: calendar) {
+        case .inHand: return dayFraction
+        case .tomorrow: (from, length) = (1, 1)
+        case .week: (from, length) = (2, 6)
+        case .month: (from, length) = (8, 24)
+        case .horizon: (from, length) = (32, 60)
+        case .cairn, .slipped, .shelf: return 0
+        }
+        return min(1, max(0, (t - from) / length))
+    }
+
     static func dayOffset(from now: Date, to due: Date, calendar: Calendar) -> Int {
         calendar.dateComponents([.day], from: calendar.startOfDay(for: now),
                                 to: calendar.startOfDay(for: due)).day ?? 0
