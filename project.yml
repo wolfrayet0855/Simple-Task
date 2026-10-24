@@ -1,0 +1,92 @@
+name: Simple Task
+options:
+  bundleIdPrefix: beta
+  deploymentTarget:
+    iOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.2"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Simple Task:
+    type: application
+    platform: iOS
+    sources:
+      - path: Simple Task
+        excludes: ["MIT License.md"]
+    dependencies:
+      - target: SimpleTaskKit
+      - target: SimpleTaskWidgets
+        embed: true
+    entitlements:
+      path: Simple Task/SimpleTask.entitlements
+      properties:
+        com.apple.security.application-groups: ["group.beta.SimpleTask"]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask
+        TARGETED_DEVICE_FAMILY: "1,2"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: Simple Task/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: Simple Task
+        INFOPLIST_KEY_UILaunchStoryboardName: Launch Screen.storyboard
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: "\"Simple Task/Preview Content\""
+        ENABLE_PREVIEWS: YES
+  SimpleTaskKit:
+    type: framework
+    platform: iOS
+    sources: [SimpleTaskKit]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.Kit
+        GENERATE_INFOPLIST_FILE: YES
+        DEFINES_MODULE: YES
+  SimpleTaskWidgets:
+    type: app-extension
+    platform: iOS
+    sources: [SimpleTaskWidgets]
+    dependencies:
+      - target: SimpleTaskKit
+    info:
+      path: SimpleTaskWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: Simple Task
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: SimpleTaskWidgets/SimpleTaskWidgets.entitlements
+      properties:
+        com.apple.security.application-groups: ["group.beta.SimpleTask"]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.Widgets
+        SKIP_INSTALL: YES
+  Simple TaskTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Simple TaskTests]
+    dependencies:
+      - target: Simple Task
+      - target: SimpleTaskKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.Tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Simple Task.app/Simple Task"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  Simple Task:
+    build:
+      targets:
+        Simple Task: all
+    test:
+      targets: [Simple TaskTests]
+    run:
+      config: Debug
