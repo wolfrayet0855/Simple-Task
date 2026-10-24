@@ -1,3 +1,4 @@
+import SimpleTaskKit
 import SwiftUI
 
 /// Hold 0.55 s to finish; a ring fills while you hold. Swipes never complete a task.

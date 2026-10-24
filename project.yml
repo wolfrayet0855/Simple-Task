@@ -17,6 +17,7 @@ targets:
         excludes: ["MIT License.md"]
     dependencies:
       - target: SimpleTaskKit
+        embed: false
       - target: SimpleTaskWidgets
         embed: true
     entitlements:
@@ -48,12 +49,14 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.Kit
         GENERATE_INFOPLIST_FILE: YES
         DEFINES_MODULE: YES
+        MACH_O_TYPE: staticlib
   SimpleTaskWidgets:
     type: app-extension
     platform: iOS
     sources: [SimpleTaskWidgets]
     dependencies:
       - target: SimpleTaskKit
+        embed: false
     info:
       path: SimpleTaskWidgets/Info.plist
       properties:
@@ -75,6 +78,8 @@ targets:
     dependencies:
       - target: Simple Task
       - target: SimpleTaskKit
+        link: false
+        embed: false
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.Tests

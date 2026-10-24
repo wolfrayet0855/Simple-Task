@@ -1,3 +1,4 @@
+import SimpleTaskKit
 import SwiftUI
 
 /// The Cairn: one stone per finished task. The total only ever grows.
