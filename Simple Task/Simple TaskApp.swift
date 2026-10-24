@@ -8,7 +8,7 @@ struct ToDoListApp: App {
     // Use a closure to initialize the container so we can catch errors.
     let container: ModelContainer = {
         do {
-            return try Store.makeContainer()
+            return try Store.bootstrap()
         } catch {
             fatalError("Error initializing ModelContainer: \(error)")
         }
