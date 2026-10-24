@@ -20,6 +20,8 @@ public struct Scheduler {
     public static let plusHourAction = "TASK_PLUS_HOUR"
     public static let tomorrowAction = "TASK_TOMORROW"
 
+    public static func notificationID(for id: UUID) -> String { "task.\(id.uuidString).reminder" }
+
     private let center: NotificationCenterProtocol
 
     public init(center: NotificationCenterProtocol = UNUserNotificationCenter.current()) {

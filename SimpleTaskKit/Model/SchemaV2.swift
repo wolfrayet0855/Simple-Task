@@ -38,7 +38,7 @@ public enum SchemaV2: VersionedSchema {
         public var landmark: Landmark? = nil
         public var pledge: Pledge? = nil
 
-        public var notificationID: String { "task.\(id.uuidString).reminder" }
+        public var notificationID: String { Scheduler.notificationID(for: id) }
 
         public init(item: String = "", reminderIsOn: Bool = false, dueDate: Date = Date(),
                     reminderDate: Date = Date(), isCompleted: Bool = false,
