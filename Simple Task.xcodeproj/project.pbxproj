@@ -33,6 +33,7 @@
 		440D2601597123B52745ED83 /* Simple TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073C8F51555614DDC272F4CE /* Simple TaskView.swift */; };
 		46C95F91A6BFFD373DB041A0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488D477F5D5F1DAFF9A2FF9 /* Store.swift */; };
 		48481073188716FFFD6C3ADF /* SimpleTaskKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2C1825B71B82F25822CCE /* SimpleTaskKit.framework */; };
+		4AC2066884EC290107ED54D2 /* BandLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE59CDB59F16D63DBEC2FE /* BandLabel.swift */; };
 		4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */; };
 		4EF31BCC62F1A5A457463776 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11052A6A0B63DDB0D6ED8663 /* SchemaV1.swift */; };
 		519BBA27BC45E286B6F1862C /* TimeBandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71CD1A8B1B04A0376431E63 /* TimeBandsTests.swift */; };
@@ -151,6 +152,7 @@
 		54CEAF238E8BF28232838C85 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 		557F891979532A9F73F64635 /* CompleteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTests.swift; sourceTree = "<group>"; };
 		576A453398FB1CB6EB36CE2B /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		59AE59CDB59F16D63DBEC2FE /* BandLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLabel.swift; sourceTree = "<group>"; };
 		5B30CBF675700A825A1C23A9 /* BootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapTests.swift; sourceTree = "<group>"; };
 		6116524483E1FD08C4A47D28 /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
 		683CBF2321D4541C6F6E8EE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				86B23FDD487333C225CDF02C /* BandHeights.swift */,
+				59AE59CDB59F16D63DBEC2FE /* BandLabel.swift */,
 				6D29DF809F29B4E920DD63AF /* CairnLabel.swift */,
 				EC86C55BF23B784ADBD3EE5D /* Capture.swift */,
 				9496E0F3F1AF224074739FF3 /* CaptureParser.swift */,
@@ -551,6 +554,7 @@
 				14DC1FE9066EA5F565BBE154 /* Aliases.swift in Sources */,
 				4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */,
 				2DEBC1FE6F2B76C83EBBC88C /* BandHeights.swift in Sources */,
+				4AC2066884EC290107ED54D2 /* BandLabel.swift in Sources */,
 				7D2E17F3C95665221F6D79F8 /* Bootstrap.swift in Sources */,
 				2F256FF83B63A2BAC8A9FD38 /* CairnLabel.swift in Sources */,
 				A63400F13FD9B739C8994426 /* Capture.swift in Sources */,

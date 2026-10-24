@@ -12,6 +12,26 @@ public enum Tokens {
     private static func dynamic(_ light: UInt32, _ dark: UInt32) -> Color {
         Color(UIColor { $0.userInterfaceStyle == .dark ? UIColor(hex: dark) : UIColor(hex: light) })
     }
+    private static func dynamic(_ pair: Palette.Pair) -> Color { dynamic(pair.light, pair.dark) }
+    private static func dynamic(_ light: UInt32, _ dark: UInt32, alpha lightAlpha: Double, _ darkAlpha: Double,
+                                darkBase: UInt32? = nil) -> Color {
+        Color(UIColor { $0.userInterfaceStyle == .dark
+            ? UIColor(hex: darkBase ?? dark).withAlphaComponent(darkAlpha)
+            : UIColor(hex: light).withAlphaComponent(lightAlpha) })
+    }
+    public static let inkSecondary = dynamic(Palette.inkSecondary)
+    public static let inkTertiary = dynamic(Palette.inkTertiary)
+    public static let emberText = dynamic(Palette.emberText)
+    public static let witnessText = dynamic(Palette.witnessText)
+    public static let slippedText = dynamic(Palette.slippedText)
+    public static let card = dynamic(Palette.card)
+    public static let threshold = dynamic(Palette.threshold)
+    public static let cardEdge = dynamic(0x1C1E22, 0xFFFFFF, alpha: 0.08, 0.07)
+    public static let contour = dynamic(0x1C1E22, 0xEDEBE6, alpha: 0.10, 0.10)
+    public static func tag(_ index: Int) -> Color { dynamic(Palette.tags[((index % 8) + 8) % 8]) }
+    public static func skyTop(_ key: SkyKey) -> Color { dynamic(key.top) }
+    public static func skyGlow(_ key: SkyKey) -> Color { dynamic(key.glow) }
+
     public static let ink = dynamic(0x1C1E22, 0xEDEBE6)
     public static let ground = dynamic(0xFBF8F3, 0x17150F)
     public static let skyDay = dynamic(0xE6EDF6, 0x0E1420)

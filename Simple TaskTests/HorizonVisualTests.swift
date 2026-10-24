@@ -70,3 +70,31 @@ struct HorizonVisualTests {
         #expect(h[.tomorrow]! >= 3 * 40 + 32)
     }
 }
+
+struct BandLabelTests {
+    var utc: Calendar { var c = Calendar(identifier: .gregorian); c.timeZone = TimeZone(identifier: "UTC")!; return c }
+    var now: Date { utc.date(from: DateComponents(year: 2026, month: 10, day: 24, hour: 9))! }   // Saturday
+
+    @Test func bandLabelsCarryTheirRange() {
+        #expect(BandLabel.text(.tomorrow, now: now, calendar: utc) == "Tomorrow · Sun")
+        #expect(BandLabel.text(.week, now: now, calendar: utc) == "This week · to Sat 31")
+        #expect(BandLabel.text(.month, now: now, calendar: utc) == "This month · to 24 Nov")
+        #expect(BandLabel.text(.horizon, now: now, calendar: utc) == "Beyond")
+        #expect(BandLabel.text(.inHand, now: now, calendar: utc) == "Today")
+    }
+
+    @Test func countdownReadsNaturally() {
+        #expect(BandLabel.countdown(to: now.addingTimeInterval(86 * 60), now: now) == "in 1h 26m")
+        #expect(BandLabel.countdown(to: now.addingTimeInterval(12 * 60), now: now) == "in 12m")
+        #expect(BandLabel.countdown(to: now.addingTimeInterval(120 * 60), now: now) == "in 2h")
+        #expect(BandLabel.countdown(to: now, now: now) == "now")
+        #expect(BandLabel.countdown(to: now.addingTimeInterval(-40 * 60), now: now) == "40m ago")
+    }
+
+    @Test func stampsFitTheBand() {
+        let due = utc.date(from: DateComponents(year: 2026, month: 11, day: 12, hour: 14, minute: 5))!
+        #expect(BandLabel.stamp(for: due, band: .tomorrow, calendar: utc) == "2:05 PM")
+        #expect(BandLabel.stamp(for: due, band: .week, calendar: utc) == "Thu")
+        #expect(BandLabel.stamp(for: due, band: .month, calendar: utc) == "12 Nov")
+    }
+}
