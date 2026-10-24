@@ -30,7 +30,9 @@ public enum Completion {
         return true
     }
 
-    public static func cairnTotal(in context: ModelContext) throws -> Int {
+    /// Finished tasks plus stones whose task was later deleted: the total never goes down.
+    public static func cairnTotal(in context: ModelContext, defaults: UserDefaults = Store.groupDefaults) throws -> Int {
         try context.fetchCount(FetchDescriptor<ToDo>(predicate: #Predicate { $0.isCompleted }))
+            + CairnCounter.removed(defaults: defaults)
     }
 }

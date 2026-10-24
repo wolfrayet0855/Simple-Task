@@ -156,11 +156,20 @@ struct TaskEditsTests {
         #expect(try c.fetchCount(FetchDescriptor<SubTask>()) == 0)
     }
 
-    @Test func deleteIsRefusedForCompletedTasksSoTheCairnNeverShrinks() throws {
+    @Test func deletingAFinishedTaskKeepsItsStoneInTheCairn() throws {
         let c = try ctx(); let t = make(c)
+        let defaults = UserDefaults(suiteName: "cairn.\(UUID().uuidString)")!
         _ = try Completion.complete(t, in: c, now: now)
-        #expect(!TaskEdits.canDelete(t))
-        #expect(throws: TaskEdits.EditError.self) { try TaskEdits.delete(t, in: c) }
-        #expect(try Completion.cairnTotal(in: c) == 1)
+        #expect(TaskEdits.canDelete(t))
+        try TaskEdits.delete(t, in: c, defaults: defaults)
+        #expect(try Completion.cairnTotal(in: c, defaults: defaults) == 1)
+        #expect(try c.fetchCount(FetchDescriptor<ToDo>()) == 0)
+    }
+
+    @Test func deletingAnOpenTaskNeverAddsStones() throws {
+        let c = try ctx(); let t = make(c)
+        let defaults = UserDefaults(suiteName: "cairn.\(UUID().uuidString)")!
+        try TaskEdits.delete(t, in: c, defaults: defaults)
+        #expect(try Completion.cairnTotal(in: c, defaults: defaults) == 0)
     }
 }

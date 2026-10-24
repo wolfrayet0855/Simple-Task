@@ -19,7 +19,6 @@ public enum TaskEdits {
         case atTime, tenMinutesBefore, oneHourBefore, morningOf
     }
 
-    public enum EditError: Error { case completedTaskCannotBeDeleted }
 
     private static func touch(_ task: ToDo, _ context: ModelContext, _ now: Date) throws {
         task.modifiedAt = now
@@ -217,16 +216,18 @@ public enum TaskEdits {
         try touch(task, context, now)
     }
 
-    /// The Cairn total counts completed tasks, so finished work is never deleted from the sheet.
-    public static func canDelete(_ task: ToDo) -> Bool { !task.isCompleted }
+    /// Finished tasks can be deleted: their stone stays in the Cairn through `CairnCounter`.
+    public static func canDelete(_ task: ToDo) -> Bool { true }
 
     /// Deletes the task and its steps. Returns the notification id the caller must cancel.
     @discardableResult
-    public static func delete(_ task: ToDo, in context: ModelContext) throws -> String {
-        guard canDelete(task) else { throw EditError.completedTaskCannotBeDeleted }
+    public static func delete(_ task: ToDo, in context: ModelContext,
+                              defaults: UserDefaults = Store.groupDefaults) throws -> String {
         let id = task.notificationID
+        let wasFinished = task.isCompleted
         context.delete(task)
         try context.save()
+        if wasFinished { CairnCounter.recordRemoval(defaults: defaults) }
         return id
     }
 }

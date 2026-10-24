@@ -216,17 +216,6 @@ struct HorizonView: View {
         TaskCard(task: task, isEmber: isEmber, now: now)
             .holdToComplete(cornerRadius: Radius.card, onComplete: { complete(task.id, byID) }, onOpen: { open(task.id) })
             .transition(reduceMotion ? .opacity : .asymmetric(insertion: .opacity, removal: AnyTransition(SinkTransition())))
-            .overlay(alignment: .topTrailing) {
-                Menu {
-                    Button("Open", systemImage: "square.and.pencil") { open(task.id) }
-                    Button("Tomorrow", systemImage: "sunrise") { reschedule(task.id, byID, .tomorrow) }
-                    Button("Next week", systemImage: "calendar") { reschedule(task.id, byID, .nextWeek) }
-                    Button("Shelf", systemImage: "tray") { reschedule(task.id, byID, .shelf) }
-                } label: {
-                    Image(systemName: "ellipsis").padding(12).foregroundStyle(Tokens.inkTertiary)
-                }
-                .accessibilityLabel("More actions")
-            }
             .accessibilityHint("Hold to finish. Double-tap to open.")
             .accessibilityAction(named: "Complete") { complete(task.id, byID) }
             .accessibilityAction(named: "Tomorrow") { reschedule(task.id, byID, .tomorrow) }
@@ -328,7 +317,7 @@ struct HorizonView: View {
     /// VoiceOver users need longer to find Undo.
     private var undoWindow: TimeInterval { UIAccessibility.isVoiceOverRunning ? 15 : Completion.undoWindow }
 
-    private var cairnTotal: Int { todos.lazy.filter(\.isCompleted).count }
+    private var cairnTotal: Int { todos.lazy.filter(\.isCompleted).count + CairnCounter.removed() }
 
     private func completedToday(_ now: Date) -> Int {
         todos.lazy.filter { $0.completedAt.map { calendar.isDate($0, inSameDayAs: now) } ?? false }.count
