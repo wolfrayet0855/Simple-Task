@@ -50,6 +50,17 @@
                ReferencedContainer = "container:Simple Task.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BB50DF1296AD94255410773A"
+               BuildableName = "Simple TaskUITests.xctest"
+               BlueprintName = "Simple TaskUITests"
+               ReferencedContainer = "container:Simple Task.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

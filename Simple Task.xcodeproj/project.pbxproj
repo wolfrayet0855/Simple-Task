@@ -18,6 +18,7 @@
 		1C29034A865C013BFADF3D03 /* StepsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3F2903351E7B38C572C4E /* StepsSection.swift */; };
 		1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B967787C8E0A637A81194 /* CaptureParserTests.swift */; };
 		20E594CE89D8AC97FC009475 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A0982A5D32672930629467 /* OnboardingView.swift */; };
+		26B14B3A74967EDAE6B597FF /* HorizonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0FDECB137CE1EF5E697898 /* HorizonUITests.swift */; };
 		2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A570F50D0096A5520B2EF /* HoldToComplete.swift */; };
 		2B6B4B9B49EC16B1CA1A1BA0 /* HorizonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */; };
 		2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C66D14048751606939ACD /* Simple Task.swift */; };
@@ -89,6 +90,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		089860BF1A24E6143CADEFDF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40CEE42E8CEF21BB1D0D4F42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0DA7AC04B76626FABFF93903;
+			remoteInfo = "Simple Task";
+		};
 		2CDD7E4BF9A9F21DBA9E1525 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 40CEE42E8CEF21BB1D0D4F42 /* Project object */;
@@ -156,6 +164,7 @@
 		370A507F96A72606BAF12484 /* CaptureBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureBar.swift; sourceTree = "<group>"; };
 		385160E314DA31E37F4F4954 /* LaunchHygieneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchHygieneTests.swift; sourceTree = "<group>"; };
 		392884757150F1E091A2F55D /* SimpleTaskWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleTaskWidgets.entitlements; sourceTree = "<group>"; };
+		3B0FDECB137CE1EF5E697898 /* HorizonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonUITests.swift; sourceTree = "<group>"; };
 		43F2910710281974FF48C042 /* BandField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandField.swift; sourceTree = "<group>"; };
 		440EC7F1F4D1BD10EB72751B /* TaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSheet.swift; sourceTree = "<group>"; };
 		4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simple TaskApp.swift"; sourceTree = "<group>"; };
@@ -184,6 +193,7 @@
 		86B23FDD487333C225CDF02C /* BandHeights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandHeights.swift; sourceTree = "<group>"; };
 		87006C5732204690575CEA76 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouterTests.swift; sourceTree = "<group>"; };
+		88885F66216A639EB39B148F /* Simple TaskUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = "Simple TaskUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		889494B2537F1197A96953DD /* TaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCard.swift; sourceTree = "<group>"; };
 		8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonHeader.swift; sourceTree = "<group>"; };
@@ -342,6 +352,7 @@
 			children = (
 				CBA5E69FD5706D7ECB3F79FA /* Simple Task */,
 				04B0B3A4C8A4557900A08ED2 /* Simple TaskTests */,
+				EC3FD2EA128266BD16AB0B3F /* Simple TaskUITests */,
 				ACCC825E9C3CD075CDE67BAD /* SimpleTaskKit */,
 				7BD2CFBC62D27EB9DEA1BAB4 /* SimpleTaskWidgets */,
 				E20176FB0C79FDFBEB87C567 /* Products */,
@@ -441,6 +452,7 @@
 			children = (
 				DD37EA06B491256FD0D7169D /* Simple Task.app */,
 				C4232986CD2A23D75C3DC509 /* Simple TaskTests.xctest */,
+				88885F66216A639EB39B148F /* Simple TaskUITests.xctest */,
 				04D2C1825B71B82F25822CCE /* SimpleTaskKit.framework */,
 				7192A9C3B8388A098CA52EA7 /* SimpleTaskWidgets.appex */,
 			);
@@ -455,6 +467,14 @@
 				6116524483E1FD08C4A47D28 /* TaskEntity.swift */,
 			);
 			path = Intents;
+			sourceTree = "<group>";
+		};
+		EC3FD2EA128266BD16AB0B3F /* Simple TaskUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B0FDECB137CE1EF5E697898 /* HorizonUITests.swift */,
+			);
+			path = "Simple TaskUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,6 +540,24 @@
 			productReference = C4232986CD2A23D75C3DC509 /* Simple TaskTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BB50DF1296AD94255410773A /* Simple TaskUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC590B84AE30409D6DAAEFB0 /* Build configuration list for PBXNativeTarget "Simple TaskUITests" */;
+			buildPhases = (
+				12A2AFEA84BC6305360BF69E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				922513B2DEB6F456AA43158E /* PBXTargetDependency */,
+			);
+			name = "Simple TaskUITests";
+			packageProductDependencies = (
+			);
+			productName = "Simple TaskUITests";
+			productReference = 88885F66216A639EB39B148F /* Simple TaskUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F4D2CF966699A30B208E855B /* SimpleTaskKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 224BCE81A65B79E329049A27 /* Build configuration list for PBXNativeTarget "SimpleTaskKit" */;
@@ -555,6 +593,10 @@
 					B10C1E940BFC38EBA86D01BF = {
 						DevelopmentTeam = P9Z5QB8965;
 					};
+					BB50DF1296AD94255410773A = {
+						DevelopmentTeam = P9Z5QB8965;
+						TestTargetID = 0DA7AC04B76626FABFF93903;
+					};
 					F4D2CF966699A30B208E855B = {
 						DevelopmentTeam = P9Z5QB8965;
 					};
@@ -578,6 +620,7 @@
 				F4D2CF966699A30B208E855B /* SimpleTaskKit */,
 				4BB4962D4278E53832E61919 /* SimpleTaskWidgets */,
 				B10C1E940BFC38EBA86D01BF /* Simple TaskTests */,
+				BB50DF1296AD94255410773A /* Simple TaskUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -596,6 +639,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		12A2AFEA84BC6305360BF69E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26B14B3A74967EDAE6B597FF /* HorizonUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A04F9C3125C21D4999449488 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -720,6 +771,11 @@
 			target = F4D2CF966699A30B208E855B /* SimpleTaskKit */;
 			targetProxy = DF1351F9FF7BE00698CFD384 /* PBXContainerItemProxy */;
 		};
+		922513B2DEB6F456AA43158E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0DA7AC04B76626FABFF93903 /* Simple Task */;
+			targetProxy = 089860BF1A24E6143CADEFDF /* PBXContainerItemProxy */;
+		};
 		D6E408BAA27BD4A0A09BE365 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F4D2CF966699A30B208E855B /* SimpleTaskKit */;
@@ -808,6 +864,23 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3C06E0B5B9E485E81EB67034 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask.UITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Simple Task";
 			};
 			name = Release;
 		};
@@ -938,6 +1011,23 @@
 			};
 			name = Debug;
 		};
+		BA535FD5FA3D7A7AE1F2BD81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = beta.SimpleTask.UITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Simple Task";
+			};
+			name = Debug;
+		};
 		BBE5904D84B1EDCEDD19DAE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1049,6 +1139,15 @@
 			buildConfigurations = (
 				D48D731F8C71F79C9E5E63FC /* Debug */,
 				BBE5904D84B1EDCEDD19DAE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DC590B84AE30409D6DAAEFB0 /* Build configuration list for PBXNativeTarget "Simple TaskUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA535FD5FA3D7A7AE1F2BD81 /* Debug */,
+				3C06E0B5B9E485E81EB67034 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

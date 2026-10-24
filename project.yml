@@ -90,12 +90,23 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Simple Task.app/Simple Task"
         BUNDLE_LOADER: "$(TEST_HOST)"
+  Simple TaskUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [Simple TaskUITests]
+    dependencies:
+      - target: Simple Task
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: beta.SimpleTask.UITests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Simple Task
 schemes:
   Simple Task:
     build:
       targets:
         Simple Task: all
     test:
-      targets: [Simple TaskTests]
+      targets: [Simple TaskTests, Simple TaskUITests]
     run:
       config: Debug

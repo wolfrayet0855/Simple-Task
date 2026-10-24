@@ -26,6 +26,13 @@ struct CaptureBar: View {
                     .focused($focused)
                     .submitLabel(.done)
                     .onSubmit(commit)
+                    .onChange(of: text) { _, new in
+                        // A vertical-axis field inserts a newline on Return instead of submitting.
+                        guard new.contains("\n") else { return }
+                        let endedWithReturn = new.hasSuffix("\n")
+                        text = new.replacingOccurrences(of: "\n", with: " ").trimmingCharacters(in: .whitespaces)
+                        if endedWithReturn { commit() }
+                    }
                     .accessibilityLabel("Capture")
                 Button(action: commit) {
                     Image(systemName: "arrow.up").font(.body.bold()).foregroundStyle(.white)

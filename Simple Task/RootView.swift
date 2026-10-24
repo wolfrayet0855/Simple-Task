@@ -49,13 +49,20 @@ struct RootView: View {
     private func boot(isRetry: Bool) async {
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
+        if !isRetry, args.contains("-resetOnboarding") { onboardingDone = false }
         if !isRetry, args.contains("-failRelocation") {
             phase = .failed(.relocationMismatch(expected: 23, got: 21))
             return
         }
         #endif
         retrying = true
-        let result = await Task.detached(priority: .userInitiated) { Store.tryBootstrap() }.value
+        var result = await Task.detached(priority: .userInitiated) { Store.tryBootstrap() }.value
+        #if DEBUG
+        // UI tests never touch the simulator's real store.
+        if ProcessInfo.processInfo.arguments.contains("-inMemoryStore"), let memory = try? Store.makeContainer(inMemory: true) {
+            result = .ready(memory, .nothingToMove)
+        }
+        #endif
         retrying = false
         switch result {
         case .ready(let container, let relocation):
