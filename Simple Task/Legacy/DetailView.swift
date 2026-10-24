@@ -1,3 +1,4 @@
+import SimpleTaskKit
 import SwiftUI
 import SwiftData
 import UserNotifications
@@ -80,7 +81,7 @@ struct DetailView: View {
                 }
                 
                 Section(header: Text("Subtasks").font(.headline)) {
-                    ForEach(toDo.subtasks) { subtask in
+                    ForEach(toDo.subtasks ?? []) { subtask in
                         HStack {
                             Button(action: {
                                 subtask.isCompleted.toggle()
@@ -93,7 +94,7 @@ struct DetailView: View {
                     }
                     .onDelete { indexSet in
                         for index in indexSet {
-                            let removedSubTask = toDo.subtasks[index]
+                            let removedSubTask = (toDo.subtasks ?? [])[index]
                             modelContext.delete(removedSubTask)
                         }
                     }
@@ -103,7 +104,7 @@ struct DetailView: View {
                         Button(action: {
                             guard !newSubTaskName.isEmpty else { return }
                             let newSubTask = SubTask(name: newSubTaskName, isCompleted: false, parent: toDo)
-                            toDo.subtasks.append(newSubTask)
+                            toDo.subtasks = (toDo.subtasks ?? []) + [newSubTask]
                             newSubTaskName = ""
                         }) {
                             Image(systemName: "plus.circle.fill")

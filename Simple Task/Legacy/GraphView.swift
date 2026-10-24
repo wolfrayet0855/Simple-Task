@@ -1,3 +1,4 @@
+import SimpleTaskKit
 //
 //  GraphView.swift
 //  Simple Task

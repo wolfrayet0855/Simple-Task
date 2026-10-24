@@ -1,13 +1,14 @@
 import SwiftUI
 import SwiftData
 import UserNotifications
+import SimpleTaskKit
 
 @main
 struct ToDoListApp: App {
     // Use a closure to initialize the container so we can catch errors.
     let container: ModelContainer = {
         do {
-            return try ModelContainer(for: ToDo.self, SubTask.self)
+            return try Store.makeContainer()
         } catch {
             fatalError("Error initializing ModelContainer: \(error)")
         }
