@@ -95,7 +95,7 @@ public enum TimeBands {
         return min(1, max(0, (t - from) / length))
     }
 
-    static func dayOffset(from now: Date, to due: Date, calendar: Calendar) -> Int {
+    public static func dayOffset(from now: Date, to due: Date, calendar: Calendar) -> Int {
         calendar.dateComponents([.day], from: calendar.startOfDay(for: now),
                                 to: calendar.startOfDay(for: due)).day ?? 0
     }

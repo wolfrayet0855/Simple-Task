@@ -29,7 +29,7 @@ struct DetailView: View {
             from: todo.reminderDate
         )
         let request = UNNotificationRequest(
-            identifier: todo.item,
+            identifier: todo.notificationID,
             content: content,
             trigger: UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
         )
