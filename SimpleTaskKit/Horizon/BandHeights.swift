@@ -25,7 +25,7 @@ public enum BandHeights {
             if n == 0 { heights[band] = emptyHeight; continue }
             populated.append(band)
             let rows = (n + lanes(band) - 1) / lanes(band)
-            heights[band] = CGFloat(rows) * (chipHeight(band) + 6) + 12 + 20   // + label strip
+            heights[band] = CGFloat(rows) * (chipHeight(band) + 6) + 12 + 28   // + label strip
         }
         let used = heights.values.reduce(0, +)
         let leftover = total - used

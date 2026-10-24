@@ -1,61 +1,65 @@
 import SwiftUI
 import SimpleTaskKit
 
-/// A far band: items sit at a height linear in time, staggered across lanes.
+/// A far band: items sit at a height linear in time, staggered across lanes inside the path.
 struct BandField: View {
-    let group: HorizonModel.Group
-    let depth: Double
+    let band: Band
+    let group: HorizonModel.Group?
     let now: Date
+    let horizontalInset: CGFloat
     let onOpen: (UUID) -> Void
-    var accessibilityName: String
+    let label: String
 
-    private let chipHeight: CGFloat = 28
     private let gap: CGFloat = 6
+    private let labelStrip: CGFloat = 28
 
     var body: some View {
         GeometryReader { geo in
-            let lanes = max(1, min(3, group.visible.count))
-            let laneWidth = (geo.size.width - 32) / CGFloat(lanes)
-            let placed = place(lanes: lanes, height: geo.size.height)
+            let tasks = group?.visible ?? []
+            let lanes = max(1, min(BandHeights.lanes(band), tasks.count))
+            let usable = max(0, geo.size.width - 2 * horizontalInset)
+            let laneWidth = usable / CGFloat(lanes)
+            let placed = place(tasks, lanes: lanes, height: geo.size.height)
             ZStack(alignment: .topLeading) {
-                ForEach(group.visible) { task in
+                Text(label).font(.caption.weight(.semibold)).tracking(0.6).foregroundStyle(Tokens.inkSecondary)
+                    .padding(.leading, Space.xl).padding(.top, 10).accessibilityHidden(true)
+                ForEach(tasks) { task in
                     if let p = placed[task.id] {
-                        FarChip(task: task, depth: depth, width: laneWidth - 8)
-                            .offset(x: 16 + CGFloat(p.lane) * laneWidth, y: p.y)
+                        FarChip(task: task, band: band, width: laneWidth - 8)
+                            .offset(x: horizontalInset + CGFloat(p.lane) * laneWidth, y: p.y)
                             .onTapGesture { onOpen(task.id) }
                             .accessibilityAddTraits(.isButton)
                     }
                 }
-                if group.overflow > 0 {
-                    Text("+\(group.overflow)")
-                        .font(.caption.weight(.semibold).monospacedDigit())
-                        .foregroundStyle(Tokens.ink.opacity(0.6))
-                        .padding(.horizontal, 8).padding(.vertical, 4)
-                        .background(Capsule().fill(Tokens.stone.opacity(0.5)))
-                        .offset(x: geo.size.width - 56, y: geo.size.height - 26)
+                if let overflow = group?.overflow, overflow > 0 {
+                    Text("+\(overflow)").font(.caption.weight(.semibold).monospacedDigit())
+                        .foregroundStyle(Tokens.ink).frame(width: 28, height: 28)
+                        .background(Circle().fill(Tokens.stone.opacity(0.6)))
+                        .offset(x: geo.size.width - horizontalInset - 28, y: geo.size.height - 30)
                 }
             }
             .frame(width: geo.size.width, height: geo.size.height, alignment: .topLeading)
         }
-        .dynamicTypeSize(...DynamicTypeSize.xLarge)
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(accessibilityName)
+        .accessibilityLabel((group?.visible.isEmpty ?? true) ? "\(label), nothing yet" : "\(label), \(group!.visible.count) \(group!.visible.count == 1 ? "task" : "tasks")")
     }
 
-    private func place(lanes: Int, height: CGFloat) -> [UUID: (lane: Int, y: CGFloat)] {
-        var result: [UUID: (Int, CGFloat)] = [:]
-        var nextFree = [CGFloat](repeating: height, count: lanes)   // lowest free y per lane, from the bottom
-        let sorted = group.visible.sorted {
+    private func place(_ tasks: [TaskSnapshot], lanes: Int, height: CGFloat) -> [UUID: (lane: Int, y: CGFloat)] {
+        let chip = BandHeights.chipHeight(band)
+        var result: [UUID: (lane: Int, y: CGFloat)] = [:]
+        var nextFree = [CGFloat](repeating: height, count: lanes)
+        let sorted = tasks.sorted {
             TimeBands.position(for: $0, now: now, calendar: .current) < TimeBands.position(for: $1, now: now, calendar: .current)
         }
         for (i, task) in sorted.enumerated() {
             let lane = i % lanes
             let t = TimeBands.position(for: task, now: now, calendar: .current)
-            let ideal: CGFloat = (height - chipHeight) * CGFloat(1 - t)
-            let y: CGFloat = max(0, min(ideal, nextFree[lane] - chipHeight - gap))
+            let ideal = labelStrip + (height - labelStrip - chip) * CGFloat(1 - t)
+            let y = max(labelStrip, min(ideal, nextFree[lane] - chip - gap))
             result[task.id] = (lane, y)
             nextFree[lane] = y
         }
-        return result.mapValues { (lane: $0.0, y: $0.1) }
+        return result
     }
 }

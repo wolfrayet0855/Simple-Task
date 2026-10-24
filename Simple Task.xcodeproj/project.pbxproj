@@ -16,6 +16,7 @@
 		1791BF965F0B6A8E2D10A027 /* IntentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148D92EDA7F8D42B1D58CC69 /* IntentTests.swift */; };
 		1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B967787C8E0A637A81194 /* CaptureParserTests.swift */; };
 		2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A570F50D0096A5520B2EF /* HoldToComplete.swift */; };
+		2B6B4B9B49EC16B1CA1A1BA0 /* HorizonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */; };
 		2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C66D14048751606939ACD /* Simple Task.swift */; };
 		2D424070F6D61483F2DF9019 /* HorizonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43B0046D1E4210B4B56684 /* HorizonModel.swift */; };
 		2DEBC1FE6F2B76C83EBBC88C /* BandHeights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B23FDD487333C225CDF02C /* BandHeights.swift */; };
@@ -37,6 +38,7 @@
 		4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */; };
 		4EF31BCC62F1A5A457463776 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11052A6A0B63DDB0D6ED8663 /* SchemaV1.swift */; };
 		519BBA27BC45E286B6F1862C /* TimeBandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71CD1A8B1B04A0376431E63 /* TimeBandsTests.swift */; };
+		53F22DADBFA176205456BB8B /* SkyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A5E8A8F2124ED264807E70 /* SkyBackground.swift */; };
 		578C844E64C5AF3985625968 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEAF238E8BF28232838C85 /* NotificationRouter.swift */; };
 		5AD04478B75427A0F0DE2BB2 /* Simple TaskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */; };
 		5BAE8B4EF328CA8DC4A51B76 /* LaunchHygieneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385160E314DA31E37F4F4954 /* LaunchHygieneTests.swift */; };
@@ -136,6 +138,7 @@
 		0C389A5FBAEEC07EDDFB4DF1 /* SimpleTask.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleTask.entitlements; sourceTree = "<group>"; };
 		11052A6A0B63DDB0D6ED8663 /* SchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV1.swift; sourceTree = "<group>"; };
 		148D92EDA7F8D42B1D58CC69 /* IntentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTests.swift; sourceTree = "<group>"; };
+		17A5E8A8F2124ED264807E70 /* SkyBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyBackground.swift; sourceTree = "<group>"; };
 		1A2C3C1F5408E9FEA42851F3 /* NextTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTimelineTests.swift; sourceTree = "<group>"; };
 		1B52839F5F848721D191E79E /* ReviewFixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewFixTests.swift; sourceTree = "<group>"; };
 		1CE957DDC6EADD2884AB0701 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 		882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouterTests.swift; sourceTree = "<group>"; };
 		889494B2537F1197A96953DD /* TaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCard.swift; sourceTree = "<group>"; };
 		8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonHeader.swift; sourceTree = "<group>"; };
 		8F9434A02E5E6B50820E510F /* HorizonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonView.swift; sourceTree = "<group>"; };
 		90BE17ED5EDE470E91104533 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93871AF7D5C9BF25D5E57D50 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
@@ -265,7 +269,9 @@
 				E9065E0E6D5AD785AE0D5EA0 /* DemoSeed.swift */,
 				A451285361B78DBCE3EB4E97 /* Haptics.swift */,
 				4E3A570F50D0096A5520B2EF /* HoldToComplete.swift */,
+				8DB3425492F4B0A6EEA5F150 /* HorizonHeader.swift */,
 				8F9434A02E5E6B50820E510F /* HorizonView.swift */,
+				17A5E8A8F2124ED264807E70 /* SkyBackground.swift */,
 				889494B2537F1197A96953DD /* TaskCard.swift */,
 			);
 			path = Horizon;
@@ -625,6 +631,7 @@
 				0C80F27B4590A8FE45E1D51F /* GraphView.swift in Sources */,
 				8D2AEE298F7F0018E99DA45E /* Haptics.swift in Sources */,
 				2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */,
+				2B6B4B9B49EC16B1CA1A1BA0 /* HorizonHeader.swift in Sources */,
 				7E2970F6222E11A64341BD1A /* HorizonView.swift in Sources */,
 				BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */,
 				B761C8B478A1E9DBCC803ED7 /* RecoveryView.swift in Sources */,
@@ -633,6 +640,7 @@
 				2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */,
 				5AD04478B75427A0F0DE2BB2 /* Simple TaskApp.swift in Sources */,
 				440D2601597123B52745ED83 /* Simple TaskView.swift in Sources */,
+				53F22DADBFA176205456BB8B /* SkyBackground.swift in Sources */,
 				36D584C630EC4A93D2DE7E59 /* TaskCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

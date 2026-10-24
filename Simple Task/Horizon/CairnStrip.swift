@@ -19,7 +19,7 @@ struct CairnStrip: View {
             .frame(height: 16, alignment: .bottom)
             Spacer(minLength: 0)
             Text(CairnLabel.text(total: total, today: today))
-                .font(.footnote.monospacedDigit()).foregroundStyle(Tokens.ink.opacity(0.7))
+                .font(.footnote.monospacedDigit()).foregroundStyle(Tokens.inkSecondary).lineLimit(2).minimumScaleFactor(0.8)
         }
         .foregroundStyle(Tokens.ink)
         .padding(.horizontal, 16)

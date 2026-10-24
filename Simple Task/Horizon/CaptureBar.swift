@@ -3,7 +3,7 @@ import SimpleTaskKit
 
 struct CaptureBar: View {
     let onCommit: (ParsedCapture) -> Void
-    @State private var text = ""
+    @Binding var text: String
     @FocusState private var focused: Bool
 
     private var parsed: ParsedCapture? { CaptureParser.parse(text, now: .now, calendar: .current) }
@@ -21,21 +21,22 @@ struct CaptureBar: View {
                 .transition(.opacity)
             }
             HStack(spacing: 10) {
-                TextField("Drop a thought…", text: $text, axis: .vertical)
+                TextField(text: $text, prompt: Text("Drop a thought…").foregroundStyle(Tokens.inkTertiary), axis: .vertical) { Text("Capture") }
                     .lineLimit(1...3)
                     .focused($focused)
                     .submitLabel(.done)
                     .onSubmit(commit)
                     .accessibilityLabel("Capture")
                 Button(action: commit) {
-                    Image(systemName: "arrow.up.circle.fill").font(.title2)
-                        .foregroundStyle(parsed == nil ? Tokens.ink.opacity(0.25) : Tokens.ember)
+                    Image(systemName: "arrow.up").font(.body.bold()).foregroundStyle(.white)
+                        .frame(width: 34, height: 34).background(Circle().fill(Tokens.ember))
                 }
+                .opacity(parsed == nil ? 0 : 1)
                 .disabled(parsed == nil)
                 .accessibilityLabel("Add")
             }
             .padding(.horizontal, 16).padding(.vertical, 12)
-            .background(Capsule().fill(Tokens.ground).shadow(color: .black.opacity(0.10), radius: 10, y: 3))
+            .glassEffect(.regular.interactive(), in: .capsule)
         }
         .padding(.horizontal, 12)
         .padding(.bottom, 6)

@@ -1,63 +1,108 @@
 import SwiftUI
 import SimpleTaskKit
 
-/// In Hand card. Size is weight: S/M/L set the minimum height.
+/// A completed card drops into the Cairn.
+struct SinkTransition: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content.scaleEffect(phase.isIdentity ? 1 : 0.3, anchor: .bottom)
+            .offset(y: phase.isIdentity ? 0 : 120)
+            .opacity(phase.isIdentity ? 1 : 0)
+    }
+}
+
+/// In Hand card. Size is weight: S/M/L set the minimum height. The ember card is the next action.
 struct TaskCard: View {
     let task: TaskSnapshot
     let isEmber: Bool
     let now: Date
 
+    @Environment(\.colorScheme) private var scheme
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var pebbles: Int { task.weight == .S ? 1 : task.weight == .M ? 2 : 3 }
+
+    var meta: String? {
+        guard let due = task.due else { return nil }
+        let time = due.formatted(.dateTime.hour().minute())
+        return isEmber || due < now ? "\(time) · \(BandLabel.countdown(to: due, now: now))" : time
+    }
+
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Circle()
-                .fill(isEmber ? Tokens.ember : Tokens.ink.opacity(0.18))
-                .frame(width: 10, height: 10)
-                .padding(.top, 7)
+        let shape = RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
+        HStack(alignment: .center, spacing: 0) {
+            if isEmber {
+                Capsule().fill(Tokens.ember).frame(width: 4).padding(.vertical, 12).padding(.trailing, 14)
+            }
             VStack(alignment: .leading, spacing: 4) {
+                if isEmber {
+                    Text("NEXT").font(.caption2.weight(.bold)).tracking(0.8).foregroundStyle(Tokens.emberText)
+                }
                 Text(task.title)
                     .font(isEmber ? .title3.weight(.semibold) : .body.weight(.medium))
-                    .foregroundStyle(Tokens.ink)
-                    .multilineTextAlignment(.leading)
-                if let due = task.due {
-                    Text(due, format: .dateTime.hour().minute())
-                        .font(.caption.monospacedDigit())
-                        .foregroundStyle(Tokens.ink.opacity(0.55))
+                    .foregroundStyle(Tokens.ink).lineLimit(3).multilineTextAlignment(.leading)
+                if let meta {
+                    Text(meta).font(.caption.monospacedDigit()).foregroundStyle(Tokens.inkSecondary)
                 }
             }
-            Spacer(minLength: 0)
+            Spacer(minLength: 8)
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, minHeight: task.weight.height, alignment: .topLeading)
+        .padding(.horizontal, 14).padding(.vertical, 12)
+        .padding(.leading, isEmber ? 4 : 0)
+        .frame(maxWidth: .infinity, minHeight: task.weight.height, alignment: .leading)
+        .overlay(alignment: .bottomTrailing) {
+            HStack(spacing: 3) {
+                ForEach(0..<pebbles, id: \.self) { _ in Circle().fill(Tokens.stone).frame(width: 5, height: 5) }
+            }
+            .padding(10).accessibilityHidden(true)
+        }
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Tokens.ground)
-                .shadow(color: .black.opacity(isEmber ? 0.14 : 0.07), radius: isEmber ? 14 : 8, y: isEmber ? 6 : 3)
+            shape.fill(isEmber ? Tokens.card.mix(with: Tokens.ember, by: 0.06) : Tokens.card)
+                .shadow(color: .black.opacity(scheme == .dark ? 0.45 : 0.06), radius: scheme == .dark ? 12 : 2, y: scheme == .dark ? 6 : 1)
+                .shadow(color: scheme == .dark ? .clear : .black.opacity(0.08), radius: 16, y: 8)
+                .shadow(color: isEmber && contrast != .increased ? Tokens.ember.opacity(0.22) : .clear, radius: 20, y: 6)
         }
-        .overlay {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(isEmber ? Tokens.ember.opacity(0.7) : Tokens.ink.opacity(0.06), lineWidth: isEmber ? 1.5 : 1)
-        }
+        .overlay { shape.strokeBorder(isEmber && contrast == .increased ? Tokens.ember : Tokens.cardEdge, lineWidth: isEmber && contrast == .increased ? 1.5 : 1) }
         .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityText)
+    }
+
+    private var accessibilityText: String {
+        var parts = [isEmber ? "Next." : "", task.title]
+        if let meta { parts.append(meta) }
+        parts.append(task.weight == .S ? "Small" : task.weight == .M ? "Medium" : "Large")
+        return parts.filter { !$0.isEmpty }.joined(separator: ". ")
     }
 }
 
-/// Distant work: smaller and fainter the further it is.
+/// Distant work. Depth shows in type size, chip height and haze, never in shrunken glyphs.
 struct FarChip: View {
     let task: TaskSnapshot
-    let depth: Double
+    let band: Band
     let width: CGFloat
 
+    private var font: Font {
+        switch band { case .tomorrow: .subheadline; case .week: .footnote; case .month: .caption; default: .caption2 }
+    }
+    private var fillOpacity: Double {
+        switch band { case .tomorrow: 0.92; case .week: 0.80; case .month: 0.64; default: 0.12 }
+    }
+
     var body: some View {
-        let s = TimeBands.scale(depth: depth)
-        Text(task.title)
-            .font(.footnote.weight(.medium))
-            .lineLimit(1)
-            .foregroundStyle(Tokens.ink.opacity(1 - 0.35 * depth))
-            .padding(.horizontal, 10)
-            .frame(width: width / s, height: 28, alignment: .leading)
-            .background(Capsule().fill(Tokens.ground.opacity(0.85)))
-            .overlay(Capsule().strokeBorder(Tokens.ink.opacity(0.07)))
-            .scaleEffect(s, anchor: .leading)
-            .frame(width: width, height: 28 * s, alignment: .leading)
+        let h = BandHeights.chipHeight(band)
+        HStack(spacing: 6) {
+            Text(task.title).font(font.weight(.medium)).lineLimit(1)
+                .foregroundStyle(band == .month ? Tokens.inkSecondary : Tokens.ink)
+            Spacer(minLength: 4)
+            if let due = task.due {
+                Text(BandLabel.stamp(for: due, band: band)).font(.caption2.monospacedDigit())
+                    .foregroundStyle(Tokens.inkSecondary).layoutPriority(1)
+            }
+        }
+        .padding(.horizontal, band == .tomorrow ? 12 : band == .week ? 10 : 9)
+        .frame(width: width, height: h)
+        .background(Capsule().fill(band == .horizon ? Tokens.landmark.opacity(fillOpacity) : Tokens.card.opacity(fillOpacity)))
+        .overlay { if band != .month { Capsule().strokeBorder(band == .horizon ? Tokens.landmark.opacity(0.3) : Tokens.cardEdge) } }
+        .contentShape(Rectangle().inset(by: -6))
+        .accessibilityElement(children: .combine)
     }
 }

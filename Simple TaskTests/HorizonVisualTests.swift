@@ -61,7 +61,7 @@ struct HorizonVisualTests {
     @Test func leftoverIsSharedByWeightAndNeverBelowMinimum() {
         let h = BandHeights.allocate(total: 500, counts: [.tomorrow: 1, .week: 1])
         #expect(h[.tomorrow]! > h[.week]!)
-        #expect(h[.tomorrow]! >= 34 + 6 + 12 + 20)
+        #expect(h[.tomorrow]! >= 34 + 6 + 12 + 28)
         #expect(abs(h.values.reduce(0, +) - 500) < 0.01)
     }
 
