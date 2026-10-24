@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		030F2D8A048A2CADEA9E89C3 /* BandField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2910710281974FF48C042 /* BandField.swift */; };
+		0B2A31575AF0A5910418CC45 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CBF2321D4541C6F6E8EE7 /* RootView.swift */; };
 		0C80F27B4590A8FE45E1D51F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F22BD518029E49D244F8DF2 /* GraphView.swift */; };
 		10D3F19513CC7D03CB1947C0 /* Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4534F63998B4A9F4F38FDB /* Completion.swift */; };
 		1318237CE810979703AEF819 /* SchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2453C66E6DBF12D2AF2FF2 /* SchemaV2.swift */; };
@@ -40,9 +41,12 @@
 		5D66A6FB738C4E2EC1BDAA23 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F4E8930BFF8C564369E794 /* MigrationPlan.swift */; };
 		5FF744A4CBA9A27D63DE5103 /* NextTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2C3C1F5408E9FEA42851F3 /* NextTimelineTests.swift */; };
 		6C049D2E92722DCE8BA927B5 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE957DDC6EADD2884AB0701 /* SmokeTests.swift */; };
+		6EEC81598C306A72E0A7D705 /* BootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30CBF675700A825A1C23A9 /* BootstrapTests.swift */; };
+		70B5A4ABB6C63D03E04EAC68 /* LegacyBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2834128DD98FC4E2CEDBDB /* LegacyBackup.swift */; };
 		725690550A6AD79AF31600CF /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6116524483E1FD08C4A47D28 /* TaskEntity.swift */; };
 		7A907EF9921CE130AE051AB9 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F503C809BDB367E56DC86F /* Scheduler.swift */; };
 		7CF53431B6CE3D756B175789 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95569017FB5D26D7187591F3 /* Features.swift */; };
+		7D2E17F3C95665221F6D79F8 /* Bootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5CC6F34F032CDA52A0F06E /* Bootstrap.swift */; };
 		7E2970F6222E11A64341BD1A /* HorizonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9434A02E5E6B50820E510F /* HorizonView.swift */; };
 		861C11239EE4525408E816ED /* SimpleTaskKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D2C1825B71B82F25822CCE /* SimpleTaskKit.framework */; };
 		8D2AEE298F7F0018E99DA45E /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A451285361B78DBCE3EB4E97 /* Haptics.swift */; };
@@ -53,6 +57,7 @@
 		A63400F13FD9B739C8994426 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86C55BF23B784ADBD3EE5D /* Capture.swift */; };
 		A959F6F3A812298FBEEA526F /* CompleteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557F891979532A9F73F64635 /* CompleteTests.swift */; };
 		B724B41E9828CFF31E6B6141 /* NotificationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */; };
+		B761C8B478A1E9DBCC803ED7 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87006C5732204690575CEA76 /* RecoveryView.swift */; };
 		BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF71B8B38213919052C6FA00 /* NotificationDelegate.swift */; };
 		BEBE55BDA28F8A75120C22C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */; };
 		CC31C1C100FC628F45916E00 /* TaskActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FCBB9FBC15210A38B2FE63 /* TaskActions.swift */; };
@@ -142,7 +147,9 @@
 		54CEAF238E8BF28232838C85 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 		557F891979532A9F73F64635 /* CompleteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTests.swift; sourceTree = "<group>"; };
 		576A453398FB1CB6EB36CE2B /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		5B30CBF675700A825A1C23A9 /* BootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootstrapTests.swift; sourceTree = "<group>"; };
 		6116524483E1FD08C4A47D28 /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
+		683CBF2321D4541C6F6E8EE7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		68F503C809BDB367E56DC86F /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		6B2453C66E6DBF12D2AF2FF2 /* SchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV2.swift; sourceTree = "<group>"; };
 		6D29DF809F29B4E920DD63AF /* CairnLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CairnLabel.swift; sourceTree = "<group>"; };
@@ -152,6 +159,7 @@
 		7192A9C3B8388A098CA52EA7 /* SimpleTaskWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SimpleTaskWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F4429A2FA6F40E3B50ACCA /* CompleteTaskIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTaskIntent.swift; sourceTree = "<group>"; };
 		8488D477F5D5F1DAFF9A2FF9 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		87006C5732204690575CEA76 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		882ADCCF7D4061EB9CC891B2 /* NotificationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouterTests.swift; sourceTree = "<group>"; };
 		889494B2537F1197A96953DD /* TaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCard.swift; sourceTree = "<group>"; };
 		8D3649DB4404A5A68EFE85E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -162,6 +170,8 @@
 		95569017FB5D26D7187591F3 /* Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
 		966EBBE3F38E4658FA943F0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97CF3A2B15D29CC289305074 /* CairnStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CairnStrip.swift; sourceTree = "<group>"; };
+		9A5CC6F34F032CDA52A0F06E /* Bootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bootstrap.swift; sourceTree = "<group>"; };
+		9B2834128DD98FC4E2CEDBDB /* LegacyBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyBackup.swift; sourceTree = "<group>"; };
 		A451285361B78DBCE3EB4E97 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		A7FCBB9FBC15210A38B2FE63 /* TaskActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskActions.swift; sourceTree = "<group>"; };
 		AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
@@ -208,6 +218,7 @@
 		04B0B3A4C8A4557900A08ED2 /* Simple TaskTests */ = {
 			isa = PBXGroup;
 			children = (
+				5B30CBF675700A825A1C23A9 /* BootstrapTests.swift */,
 				6F41D345E0A90B9B20846B09 /* CaptureInsertTests.swift */,
 				477B967787C8E0A637A81194 /* CaptureParserTests.swift */,
 				557F891979532A9F73F64635 /* CompleteTests.swift */,
@@ -306,7 +317,9 @@
 			isa = PBXGroup;
 			children = (
 				AA27E079AFA07FFB2EA82BAB /* AppGroup.swift */,
+				9A5CC6F34F032CDA52A0F06E /* Bootstrap.swift */,
 				95569017FB5D26D7187591F3 /* Features.swift */,
+				9B2834128DD98FC4E2CEDBDB /* LegacyBackup.swift */,
 				BED5E0F4FB3826160A58A745 /* Relocation.swift */,
 				8488D477F5D5F1DAFF9A2FF9 /* Store.swift */,
 			);
@@ -336,6 +349,8 @@
 				CE2C70BD7A65F153D7D4B727 /* Info.plist */,
 				90BE17ED5EDE470E91104533 /* Launch Screen.storyboard */,
 				BF71B8B38213919052C6FA00 /* NotificationDelegate.swift */,
+				87006C5732204690575CEA76 /* RecoveryView.swift */,
+				683CBF2321D4541C6F6E8EE7 /* RootView.swift */,
 				4632AF28425678AC5B99AD1E /* Simple TaskApp.swift */,
 				0C389A5FBAEEC07EDDFB4DF1 /* SimpleTask.entitlements */,
 				59C4F530E0AFDDE7B5DA8D96 /* Horizon */,
@@ -523,6 +538,7 @@
 			files = (
 				14DC1FE9066EA5F565BBE154 /* Aliases.swift in Sources */,
 				4C2AFBB6FBFC0AA3495AF8DF /* AppGroup.swift in Sources */,
+				7D2E17F3C95665221F6D79F8 /* Bootstrap.swift in Sources */,
 				2F256FF83B63A2BAC8A9FD38 /* CairnLabel.swift in Sources */,
 				A63400F13FD9B739C8994426 /* Capture.swift in Sources */,
 				3404A465AF5EC9467B299FA7 /* CaptureParser.swift in Sources */,
@@ -530,6 +546,7 @@
 				10D3F19513CC7D03CB1947C0 /* Completion.swift in Sources */,
 				7CF53431B6CE3D756B175789 /* Features.swift in Sources */,
 				2D424070F6D61483F2DF9019 /* HorizonModel.swift in Sources */,
+				70B5A4ABB6C63D03E04EAC68 /* LegacyBackup.swift in Sources */,
 				5D66A6FB738C4E2EC1BDAA23 /* MigrationPlan.swift in Sources */,
 				9B601B65A37BAF1B765E69B3 /* NextEntry.swift in Sources */,
 				578C844E64C5AF3985625968 /* NotificationRouter.swift in Sources */,
@@ -549,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EEC81598C306A72E0A7D705 /* BootstrapTests.swift in Sources */,
 				318F8BE30E54DD511D10E80E /* CaptureInsertTests.swift in Sources */,
 				1C6059B30F4C064F01AE12C7 /* CaptureParserTests.swift in Sources */,
 				A959F6F3A812298FBEEA526F /* CompleteTests.swift in Sources */,
@@ -589,6 +607,8 @@
 				2747F897B5F1997BC3100420 /* HoldToComplete.swift in Sources */,
 				7E2970F6222E11A64341BD1A /* HorizonView.swift in Sources */,
 				BB279506EC389D4F9FBA69DA /* NotificationDelegate.swift in Sources */,
+				B761C8B478A1E9DBCC803ED7 /* RecoveryView.swift in Sources */,
+				0B2A31575AF0A5910418CC45 /* RootView.swift in Sources */,
 				F837C9C3B04102363E4895AC /* SettingsView.swift in Sources */,
 				2B75B620EF846C28DAB53D14 /* Simple Task.swift in Sources */,
 				5AD04478B75427A0F0DE2BB2 /* Simple TaskApp.swift in Sources */,

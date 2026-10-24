@@ -45,7 +45,8 @@ extension Store {
         let got: (tasks: Int, subtasks: Int)
         do {
             let context = ModelContext(try makeContainer(storeURL: staging))
-            got = (try context.fetchCount(FetchDescriptor<ToDo>()), try context.fetchCount(FetchDescriptor<SubTask>()))
+            let real = (try context.fetchCount(FetchDescriptor<ToDo>()), try context.fetchCount(FetchDescriptor<SubTask>()))
+            got = relocationCountsOverride ?? real
         }
         guard got == expected else {
             removeStoreFiles(at: staging)
@@ -73,13 +74,5 @@ extension Store {
         for suffix in ["", "-wal", "-shm"] {
             try? FileManager.default.removeItem(atPath: url.path + suffix)
         }
-    }
-
-    /// App entry point: relocate, open (migrating if needed), reconcile.
-    public static func bootstrap() throws -> ModelContainer {
-        _ = try relocateIfNeeded(legacyURL: legacyStoreURL, groupURL: defaultStoreURL)
-        let container = try makeContainer()
-        try reconcile(context: ModelContext(container))
-        return container
     }
 }

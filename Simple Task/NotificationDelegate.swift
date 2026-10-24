@@ -5,6 +5,14 @@ import SimpleTaskKit
 /// Routes the Done, +1 hour and Tomorrow buttons on a reminder, and shows banners while the app is open.
 final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     private let container: ModelContainer
+    private static var current: NotificationDelegate?
+
+    /// Held strongly because the notification center only keeps a weak reference to its delegate.
+    static func install(container: ModelContainer) {
+        let delegate = NotificationDelegate(container: container)
+        current = delegate
+        UNUserNotificationCenter.current().delegate = delegate
+    }
 
     init(container: ModelContainer) { self.container = container }
 
